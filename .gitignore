@@ -1,0 +1,10 @@
+# nix build results
+result
+*.swp
+
+# if use secrets
+secrets/
+
+# vscode / editors
+.vscode/
+.idea/
