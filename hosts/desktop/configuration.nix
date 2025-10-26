@@ -6,7 +6,6 @@
   imports = [
     ./hardware-configuration.nix
     ../../modules/common.nix
-    ../../modules/kitty.nix
   ];
 
   networking.hostName = "desktop";

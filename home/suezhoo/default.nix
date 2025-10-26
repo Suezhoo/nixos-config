@@ -12,5 +12,10 @@
   ];
 
   #  (optional) small Quality of Life
-  programs.git.enable = true;
+  programs.git = {
+    enable = true;
+    userName = "Suezhoo";
+    userEmail = "suezhoo@outlook.com";
+    extraConfig.init.defaultBranch = "main";
+  };
 }
