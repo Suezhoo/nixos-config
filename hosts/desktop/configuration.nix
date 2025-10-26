@@ -6,7 +6,7 @@
 	../../modules/common.nix
   ];
 
-  networking.hostName = "suezhoo-desktop";
+  networking.hostName = "desktop";
 
   users.users.suezhoo = {
 	isNormalUser = true;

@@ -1,5 +1,5 @@
 {
-  description = "NixOS config for suezhoo-desktop";
+  description = "NixOS config for Suezhoo";
 
   inputs = {
 	nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
@@ -7,10 +7,10 @@
 
   outputs = { self, nixpkgs, ... }:
   {
-	nixosConfigurations.suezhoo-desktop = nixpkgs.lib.nixosSystem {
+	nixosConfigurations.desktop = nixpkgs.lib.nixosSystem {
 	  system = "x86_64-linux";
 	  modules = [
-		./hosts/suezhoo-desktop/configuration.nix
+		./hosts/desktop/configuration.nix
 	  ];
 	};
   };
