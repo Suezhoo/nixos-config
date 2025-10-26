@@ -5,7 +5,10 @@
 	home.packages = with pkgs; [
 	];
 
-	imports = [ ../apps/codium.nix ];
+	imports = [ 
+		../apps/codium.nix
+		../dev/nix-tools.nix
+	];
 
 	#  (optional) small Quality of Life
 	programs.git.enable = true;
