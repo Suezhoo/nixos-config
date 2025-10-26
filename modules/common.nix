@@ -9,7 +9,7 @@
   
   # Handy tools
   environment.systemPackages = with pkgs; [
-    git gh  vim neovim wget curl brave
+    git gh vim neovim wget curl brave
   ];
 
 }  

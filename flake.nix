@@ -21,7 +21,7 @@
 		{
 		  home-manager.useGlobalPkgs = true;
 		  home-manager.useUserPackages = true;
-		  home-manager.users.suezhoo = import ./home/suezhoo.nix;
+		  home-manager.users.suezhoo = import ./home/suezhoo;
 		  # Backup
 		  home-manager.backupFileExtension = "hm-bak";
 		}
