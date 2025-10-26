@@ -3,8 +3,10 @@
 
 	# user only packages
 	home.packages = with pkgs; [
-	  codium
+	 steam
 	];
+
+	imports = [ ./apps/codium.nix ];
 
 	#  (optional) small Quality of Life
 	programs.git.enable = true;
