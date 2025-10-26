@@ -9,13 +9,14 @@
          # Keep extensions managed by Home-Manager (immutable on disk)
         mutableExtensionsDir = false;
 
-        # Turn off telemetry/update pings (since Nix manages versions)
-        enableTelemetry = false;
-        enableUpdateCheck = false;
-
         # Extensions from nixpkgs' Open VSX set:
         extensions = with pkgs.vscode-extensions; [
-            dracula-theme
-        ]
-    }
+            dracula-theme.theme-dracula
+            bbenoist.nix
+        ];
+
+        userSettings = {
+            "workbench.colorTheme" = "Dracula";
+        };
+    };
 }

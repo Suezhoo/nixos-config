@@ -9,11 +9,13 @@
   networking.hostName = "desktop";
 
   users.users.suezhoo = {
-	isNormalUser = true;
-	extraGroups = [ "wheel" ]; #sudo
-
+    isNormalUser = true;  
+    extraGroups = [ "wheel" ]; #sudo  
   };
 
+  # Allow unfree (apps like steam etc)
+  nixpkgs.config.allowUnfree = true;
+  
   # Bootloader
   boot.loader.grub.enable = true;
   boot.loader.grub.device = "/dev/sda";
