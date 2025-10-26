@@ -2,7 +2,7 @@
 {
   home.packages = with pkgs; [
     nil        # Nix language server
-    nixfmt     # or: alejandra
+    alejandra  # or: alejandra
     ripgrep
     fd
     unzip
