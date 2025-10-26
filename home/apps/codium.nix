@@ -34,10 +34,15 @@
             "nix.enableLanguageServer" = true;
             "nix.serverPath" = "nil";
             "nix.formatterPath" = "nixfmt";
+            "[nix]" = {
+                "editor.defaultFormatter" = "jnoortheen.nix-ide";
+                "editor.formatOnSave" = true;
+            };
 
-            # Formatter
+            # Prettier Formatter
             "editor.defaultFormatter" = "esbenp.prettier-vscode";
             "editor.formatOnSave" = true;
+            "prettier.requireConfig" = true;
         };
     };
 }
