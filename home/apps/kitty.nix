@@ -19,12 +19,7 @@
     theme = "Tokyo Night";
   };
 
-  fonts.packages = with pkgs; [
-    (nerdfonts.override {fonts = ["JetBrainsMono" "FiraCode"];})
+  home.packages = [
+    (pkgs.nerdfonts.override {fonts = ["JetBrainsMono" "FiraCode"];})
   ];
-
-  # Optional: Make kitty default terminal in GUI
-  xdg.mimeApps.defaultApplications = {
-    "x-scheme-handler/terminal" = "kitty.desktop";
-  };
 }

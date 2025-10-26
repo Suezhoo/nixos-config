@@ -1,15 +1,16 @@
-{ pkgs, ...}: {
-	home.stateVersion = "24.05";
+{pkgs, ...}: {
+  home.stateVersion = "24.05";
 
-	# user only packages
-	home.packages = with pkgs; [
-	];
+  # user only packages
+  home.packages = with pkgs; [
+  ];
 
-	imports = [ 
-		../apps/codium.nix
-		../dev/nix-tools.nix
-	];
+  imports = [
+    ../apps/codium.nix
+    ../apps/kitty.nix
+    ../dev/nix-tools.nix
+  ];
 
-	#  (optional) small Quality of Life
-	programs.git.enable = true;
+  #  (optional) small Quality of Life
+  programs.git.enable = true;
 }
