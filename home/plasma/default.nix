@@ -1,6 +1,7 @@
 {pkgs, ...}: {
   imports = [
     ./keybinds.nix
+    ./panels.nix
   ];
 
   programs.plasma = {
@@ -8,14 +9,5 @@
 
     # Important: replace existing layout file with the one from nix
     overrideConfig = true;
-
-    panels = [
-      {
-        location = "bottom";
-        widgets = [
-          "org.kde.plasma.kickoff" # app launcher
-        ];
-      }
-    ];
   };
 }
