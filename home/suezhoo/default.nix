@@ -6,6 +6,7 @@
   ];
 
   imports = [
+    ../hyperland
     ../apps/codium.nix
     ../apps/kitty.nix
     ../dev/nix-tools.nix

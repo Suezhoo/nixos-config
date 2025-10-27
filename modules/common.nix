@@ -15,7 +15,9 @@
     wget
     curl
     brave
+    firefox
     kitty
     kitty-themes
+    foot
   ];
 }
