@@ -24,28 +24,6 @@
   boot.loader.grub.device = "/dev/sda";
   boot.loader.grub.useOSProber = true;
 
-  # Hyperland Desktop
-  programs.hyprland.enable = true;
-
-  # Wayland
-  programs.xwayland.enable = true;
-
-  xdg.portal.enable = true;
-  xdg.portal.extraPortals = [
-    pkgs.xdg-desktop-portal-hyprland
-    pkgs.xdg-desktop-portal-gtk
-  ];
-
-  security.polkit.enable = true;
-  security.rtkit.enable = true;
-
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    pulse.enable = true;
-    wireplumber.enable = true;
-  };
-
   # KDE Plasma desktop
   services.xserver.enable = true;
   services.displayManager.sddm.enable = true;

@@ -23,7 +23,7 @@
 		  home-manager.useUserPackages = true;
 		  home-manager.users.suezhoo = import ./home/suezhoo;
 		  # Backup
-		  home-manager.backupFileExtension = "hm-bak";
+		  home-manager.backupFileExtension = "hm-backup";
 		}
 	   ];
 	};

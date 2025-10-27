@@ -1,8 +1,7 @@
 {pkgs, ...}: {
-  environment.systemPackages = with pkgs; [
-    hyprland #
-  ];
-
-  # Minimal waybar
-  programs.waybar.enable = true;
+  # Hyperland Desktop
+  programs.hyprland = {
+    enable = true;
+    xwayland.enable = true;
+  };
 }
