@@ -19,5 +19,6 @@
     kitty
     kitty-themes
     foot
+    fastfetch
   ];
 }
