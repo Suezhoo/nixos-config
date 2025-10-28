@@ -6,6 +6,7 @@
   imports = [
     ./hardware-configuration.nix
     ../../modules/common.nix
+    ../../modules/hyprland.nix
   ];
 
   networking.hostName = "sayonara";
