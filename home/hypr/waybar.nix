@@ -1,4 +1,4 @@
-{ config, pkgs, ...}
+{ config, pkgs, ...}:
 
 {
 	programs.waybar = {
@@ -11,7 +11,7 @@
 			modules-left=["hyprland/workspaces" "clock"];
 			modules-right=["cpu" "memory" "network" "battery" "tray"];
 		};
-	];
+	};
 
 	style = ''
 		*{
