@@ -1,6 +1,5 @@
 {pkgs, ...}: {
-
-	imports = [ ./waybar.nix ];
+  imports = [./waybar.nix];
 
   # Make hyprland visible in login screen (desktop manager)
   xdg.portal.enable = true;
@@ -106,8 +105,8 @@
 
       border_size = 2;
 
-     "col.active_border" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
-     "col.inactive_border" = "rgba(595959aa)";
+      "col.active_border" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
+      "col.inactive_border" = "rgba(595959aa)";
 
       # Set to true enable resizing windows by clicking and dragging on borders and gaps
       resize_on_border = false;
@@ -121,18 +120,18 @@
     # https://wiki.hypr.land/Configuring/Variables/#decoration
     decoration = {
       rounding = 10;
-    #  rounding_power = 2;
+      #  rounding_power = 2;
 
       # Change transparency of focused and unfocused windows
       active_opacity = 1.0;
       inactive_opacity = 1.0;
 
-   #   shadow = {
-    #    enabled = true;
-     #   range = 4;
+      #   shadow = {
+      #    enabled = true;
+      #   range = 4;
       #  render_power = 3;
       #  color = "rgba(1a1a1aee)";
-     # };
+      # };
 
       # https://wiki.hypr.land/Configuring/Variables/#blur
       blur = {
@@ -173,9 +172,9 @@
         "fadeLayersIn, 1, 1.79, almostLinear"
         "fadeLayersOut, 1, 1.39, almostLinear"
         "workspaces, 1, 1.94, almostLinear, fade"
-    #    "workspacesIn, 1, 1.21, almostLinear, fade"
-     #   "workspacesOut, 1, 1.94, almostLinear, fade"
-      #  "zoomFactor, 1, 7, quick"
+        #    "workspacesIn, 1, 1.21, almostLinear, fade"
+        #   "workspacesOut, 1, 1.94, almostLinear, fade"
+        #  "zoomFactor, 1, 7, quick"
       ];
     };
 
@@ -256,6 +255,7 @@
       "$mainMod, C, killactive,"
       "$mainMod, M, exit,"
       "$mainMod, E, exec, $fileManager"
+      "$mainMod, F, fullscreen"
       "$mainMod, V, togglefloating,"
       "$mainMod, R, exec, $menu"
       "$mainMod, P, pseudo," # dwindle
