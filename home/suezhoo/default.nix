@@ -6,13 +6,11 @@
   ];
 
   imports = [
-    #  ../hyperland
     ../apps/codium.nix
     ../apps/kitty.nix
     ../dev/nix-tools.nix
-
-    #plasma
-    ../plasma
+    ../plasma # plasma
+    ../hypr # hyprland
   ];
 
   #  (optional) small Quality of Life
