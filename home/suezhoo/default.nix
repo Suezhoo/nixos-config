@@ -1,8 +1,9 @@
 {pkgs, ...}: {
-  home.stateVersion = "24.05";
+  home.stateVersion = "25.05";
 
   # user only packages
   home.packages = with pkgs; [
+    zed-editor
   ];
 
   imports = [

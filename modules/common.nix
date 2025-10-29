@@ -20,6 +20,7 @@
     kitty-themes
     foot
     fastfetch
+    zed-editor
   ];
 
   # Enable Electron apps for Wayland
