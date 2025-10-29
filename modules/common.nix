@@ -21,4 +21,11 @@
     foot
     fastfetch
   ];
+
+  # Enable Electron apps for Wayland
+  environment.sessionVariables = {
+    # NIXOS_OZONE_WL = "1";
+    GTK_USE_PORTAL = "1";
+    ELECTRON_OZONE_PLATFORM_HINT = "auto";
+  };
 }
