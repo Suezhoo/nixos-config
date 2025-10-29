@@ -29,5 +29,5 @@
   services.desktopManager.plasma6.enable = true;
 
   # Pin to installed NixOS release; dont bump casually.
-  system.stateVersion = "24.05";
+  system.stateVersion = "25.05";
 }

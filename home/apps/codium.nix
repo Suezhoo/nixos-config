@@ -9,7 +9,7 @@
     mutableExtensionsDir = false;
 
     # Extensions from nixpkgs' Open VSX set:
-    extensions = with pkgs.vscode-extensions; [
+   profiles.default.extensions = with pkgs.vscode-extensions; [
       # Nix support
       bbenoist.nix
       jnoortheen.nix-ide
@@ -25,7 +25,7 @@
       dbaeumer.vscode-eslint
     ];
 
-    userSettings = {
+    profiles.default.userSettings = {
       "workbench.colorTheme" = "Tokyo Night";
       "workbench.iconTheme" = "material-icon-theme";
 

@@ -19,7 +19,4 @@
     # theme = "Tokyo Night";
   };
 
-  home.packages = [
-    (pkgs.nerdfonts.override {fonts = ["JetBrainsMono" "FiraCode"];})
-  ];
 }
