@@ -29,6 +29,9 @@
   services.displayManager.sddm.enable = true;
   services.desktopManager.plasma6.enable = true;
 
+  # Niri
+  services.displayManager.sessionPackages = [pkgs.niri];
+
   # Pin to installed NixOS release; dont bump casually.
   system.stateVersion = "25.05";
 }

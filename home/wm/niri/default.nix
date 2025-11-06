@@ -1,3 +1,6 @@
-{pkgs, ...}: {
-  programs.niri.enable = true;
+{...}: {
+  # Niri itself
+  imports = [
+    ./niri.nix
+  ];
 }
