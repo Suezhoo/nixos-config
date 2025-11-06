@@ -9,7 +9,7 @@
     mutableExtensionsDir = false;
 
     # Extensions from nixpkgs' Open VSX set:
-   profiles.default.extensions = with pkgs.vscode-extensions; [
+    profiles.default.extensions = with pkgs.vscode-extensions; [
       # Nix support
       bbenoist.nix
       jnoortheen.nix-ide
@@ -48,7 +48,7 @@
       # Prettier Formatter
       "editor.defaultFormatter" = "esbenp.prettier-vscode";
       "editor.formatOnSave" = true;
-      "prettier.requireConfig" = true;
+      "prettier.requireConfig" = false;
     };
   };
 }
