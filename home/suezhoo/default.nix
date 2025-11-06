@@ -18,6 +18,7 @@
     # window manager (wm)
     ../wm/plasma
     ../wm/hypr
+    ../wm/niri
 
     # Shell
     ../shell/waybar
