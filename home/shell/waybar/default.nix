@@ -11,23 +11,14 @@
         position = "top";
         height = 32;
         modules-left = ["hyprland/workspaces"];
-        modules-center = ["clock"];
-        modules-right = ["cpu" "memory" "network"];
+        modules-center = ["hyprland/window"];
+        modules-right = ["clock"];
 
-        network = {
-          interval = 2;
-
-          # show whats shown
-          format = "Idk just a test";
-          format-wifi = "{bandwithDownBytes}/s";
-          format-ethernet = "{bandwithDownBytes}/s}";
-          format-disconnected = "no net";
-
-          tooltip-format = "{ifname} {bandwithDownBytes}/s {bandwithUpBytes}/s";
-
-          # toggle alt display on click
-          on-click = "waybar-msg module network format alt";
-          format-alt = "{bandwithDownBytes} | {bandwithUpBytes}";
+        clock = {
+          interval = 1;
+          format = "{:%Y-%m-%d %H:%M:%S}";
+          tooltip = true;
+          tooltip-format = "{:L%Y %m %d, %A}";
         };
       };
     };
