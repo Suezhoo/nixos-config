@@ -1,3 +1,0 @@
-{...}: {
-  programs.waypaper.enable = true;
-}

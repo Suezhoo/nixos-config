@@ -22,7 +22,7 @@
     # Shell
     ../shell/waybar
     ../shell/wofi
-    ../shell/waypaper
+    ../shell/wallpaper
   ];
 
   #  (optional) small Quality of Life
