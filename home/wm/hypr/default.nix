@@ -1,6 +1,4 @@
 {pkgs, ...}: {
-  imports = [./waybar.nix ./wofi.nix];
-
   # Make hyprland visible in login screen (desktop manager)
   xdg.portal.enable = true;
   xdg.portal.extraPortals = with pkgs; [

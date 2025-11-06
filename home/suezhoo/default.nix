@@ -4,14 +4,24 @@
   # user only packages
   home.packages = with pkgs; [
     zed-editor
+    steam
   ];
 
   imports = [
+    # Apps
     ../apps/codium.nix
     ../apps/kitty.nix
+
+    # Dev things
     ../dev/nix-tools.nix
-    ../plasma # plasma
-    ../hypr # hyprland
+
+    # window manager (wm)
+    ../wm/plasma
+    ../wm/hypr
+
+    # Shell
+    ../shell/waybar
+    ../shell/wofi
   ];
 
   #  (optional) small Quality of Life
