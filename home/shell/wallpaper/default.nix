@@ -4,7 +4,7 @@
     swww # Backend daemon that visualizes the wallpaper
   ];
 
-  xdg.configFIle."waypaper/config.ini".text = ''
+  xdg.configFile."waypaper/config.ini".text = ''
     [Settings]
     backend = swww
     fill = fill

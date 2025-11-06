@@ -1,12 +1,12 @@
 * {
   font-family: JetBrainsMono, sans-serif;
-  font-size: 12px;
+  font-size: 14px;
+  color: #dcdfe1;
 }
 
-window#waybar {
-  background: rgba(30, 30, 30, 0.8);
-  border-radius: 8px;
-  margin-left: 500;
-  margin-right: 500;
-  margin-top: 8;
+#waybar {
+  background: rgba(30, 30, 30, 0.9);
+  border-radius: 10px;
+  border: none;
+  box-shadow: none;
 }
