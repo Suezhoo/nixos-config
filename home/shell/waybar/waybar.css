@@ -10,3 +10,9 @@
   border: none;
   box-shadow: none;
 }
+
+#clock {
+  padding: 4px 2px;
+  margin-left: 6px;
+  margin-right: 6px;
+}
