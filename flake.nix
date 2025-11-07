@@ -16,7 +16,7 @@
     plasma-manager.inputs.home-manager.follows = "home-manager";
   };
 
-  outputs = {
+  outputs = inputs @ {
     self,
     nixpkgs,
     home-manager,
@@ -24,36 +24,14 @@
     ...
   }: {
     nixosConfigurations = {
-      desktop = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          ./hosts/desktop/configuration.nix
-
-          # Integrate Home Manager  into NixOS
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.suezhoo = import ./home/suezhoo;
-            # Backup
-            home-manager.backupFileExtension = "hm-bak";
-          }
-        ];
-      };
-
       sayonara = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
+        # Make flake inputs available inside hosts/{hostname}/configuration.nix
+        specialArgs = {inherit inputs;};
+
         modules = [
           ./hosts/sayonara/configuration.nix
-
-          # HM
           home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.suezhoo = import ./home/suezhoo;
-            home-manager.sharedModules = [plasma-manager.homeModules.plasma-manager];
-          }
         ];
       };
     };

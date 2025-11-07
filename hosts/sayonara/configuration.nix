@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  inputs,
   ...
 }: {
   imports = [
@@ -11,9 +12,28 @@
 
   networking.hostName = "sayonara";
 
+  # define the user
+  users.groups.Suezhoo = {};
   users.users.suezhoo = {
     isNormalUser = true;
-    extraGroups = ["wheel"]; #sudo
+    group = "Suezhoo";
+    extraGroups = ["wheel" "networkmanager" "video" "audio" "input"];
+  };
+
+  home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
+    users.suezhoo = import ../../home/suezhoo;
+    backupFileExtension = "hm-backup";
+
+    sharedModules = [
+      inputs.plasma-manager.homeModules.plasma-manager
+    ];
+
+    # Pass host to HM modules
+    extraSpecialArgs = {
+      host = config.networking.hostName;
+    };
   };
 
   # Allow unfree (apps like steam etc)
