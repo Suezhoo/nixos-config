@@ -41,10 +41,10 @@
         ];
       };
 
-      sayonara = nixpkgs.lib.nixosSystem {
+      sayo = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
-          ./hosts/sayonara/configuration.nix
+          ./hosts/sayo/configuration.nix
 
           # HM
           home-manager.nixosModules.home-manager
