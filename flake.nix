@@ -24,13 +24,15 @@
     ...
   }: {
     nixosConfigurations = {
-      sayonara = nixpkgs.lib.nixosSystem {
+      sayo = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         # Make flake inputs available inside hosts/{hostname}/configuration.nix
         specialArgs = {inherit inputs;};
 
         modules = [
-          ./hosts/sayonara/configuration.nix
+          ./hosts/sayo/configuration.nix
+
+          # HM
           home-manager.nixosModules.home-manager
         ];
       };
