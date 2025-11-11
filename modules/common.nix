@@ -21,6 +21,8 @@
     foot
     fastfetch
     zed-editor
+
+    pavucontrol # audio
   ];
 
   # Enable Electron apps for Wayland

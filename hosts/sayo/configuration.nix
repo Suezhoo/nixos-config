@@ -7,6 +7,7 @@
   imports = [
     ./hardware-configuration.nix
     ../../modules/common.nix
+    ../../modules/hyprland.nix
   ];
 
   networking.hostName = "sayo";
@@ -50,6 +51,18 @@
 
   # Niri
   services.displayManager.sessionPackages = [pkgs.niri];
+
+  # Enable sound support
+  security.rtkit.enable = true;
+
+  # PipeWire handles PulseAudio, ALSA, and JACK
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    jack.enable = true;
+  };
 
   # Pin to installed NixOS release; dont bump casually.
   system.stateVersion = "25.05";
