@@ -14,6 +14,7 @@
     # Apps
     ../apps/codium.nix
     ../apps/kitty.nix
+    ../apps/vesktop.nix
 
     # Dev things
     ../dev/nix-tools.nix
