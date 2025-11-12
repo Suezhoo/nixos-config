@@ -6,7 +6,7 @@
     ELECTRON_OZONE_PLATFORM_HINT = "wayland";
 
     # NVIDIA-friendly Electron GL path (keeps GPU accel)
-    ELECTRON_USE_GL = "egl"; # try "egl" if ANGLE misbehaves
+    ELECTRON_USE_GL = "ANGLE"; # try "egl" if ANGLE misbehaves
     ELECTRON_DISABLE_GPU_SANDBOX = "1"; # helps avoid GPU-process crashes
 
     # wlroots/Niri friendly knobs
