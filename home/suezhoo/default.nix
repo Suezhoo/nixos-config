@@ -6,6 +6,8 @@
     zed-editor
     steam
     vesktop
+    obsidian
+    spotify
   ];
 
   imports = [
