@@ -6,7 +6,7 @@
     ELECTRON_OZONE_PLATFORM_HINT = "wayland";
 
     # NVIDIA-friendly Electron GL path (keeps GPU accel)
-    ELECTRON_USE_GL = "angle"; # try "egl" if ANGLE misbehaves
+    ELECTRON_USE_GL = "egl"; # try "egl" if ANGLE misbehaves
     ELECTRON_DISABLE_GPU_SANDBOX = "1"; # helps avoid GPU-process crashes
 
     # wlroots/Niri friendly knobs
@@ -15,6 +15,6 @@
     WLR_RENDERER = "vulkan";
 
     # Only keep if you see cursor glitches; otherwise you can remove it
-    # WLR_NO_HARDWARE_CURSORS = "1";
+    WLR_NO_HARDWARE_CURSORS = "1";
   };
 }

@@ -14,7 +14,6 @@
     modesetting.enable = true; # sets nvidia-drm.modeset=1 automatically
     nvidiaSettings = true; # optional GUI tool
     powerManagement.enable = true;
-    powerManagement.finegrained = true;
   };
 
   # GL/Vulkan stack + helper tools
