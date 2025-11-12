@@ -28,6 +28,9 @@
     ../shell/waybar
     ../shell/wofi
     ../shell/wallpaper
+
+    # Nvidia
+    ../desktop/nvidia-session.nix
   ];
 
   #  (optional) small Quality of Life

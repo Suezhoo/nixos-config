@@ -9,6 +9,7 @@
     ../../modules/common.nix
     ../../modules/hyprland.nix
     ../../modules/mount-windows.nix
+    ../../modules/gpu/nvidia.nix
   ];
 
   networking.hostName = "sayo";

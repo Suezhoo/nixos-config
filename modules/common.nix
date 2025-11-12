@@ -27,8 +27,7 @@
 
   # Enable Electron apps for Wayland
   environment.sessionVariables = {
-    # NIXOS_OZONE_WL = "1";
-    GTK_USE_PORTAL = "1";
-    ELECTRON_OZONE_PLATFORM_HINT = "auto";
+    NIXOS_OZONE_WL = "1"; # enable Wayland for Electron apps by default
+    GTK_USE_PORTAL = "1"; # good to keep for file dialogs/screenshare
   };
 }
