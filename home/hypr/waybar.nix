@@ -38,7 +38,7 @@
       	font-size: 12px;
       }
       window#waybar {
-      	background: rgba(30,30,30,0.8);
+      	background: rgba(164, 3, 3, 0.8);
       	border-radius: 8px;
         margin-left: 500;
         margin-right: 500;
