@@ -5,7 +5,12 @@
     xdg-desktop-portal-hyprland
     xdg-desktop-portal-gtk
   ];
-  xdg.portal.config.common.default = "*";
+  xdg.portal.config.hyprland = {
+    default = ["hyprland" "gtk"];
+    "org.freedesktop.impl.portal.ScreenCast" = "hyprland";
+    "org.freedesktop.impl.portal.Screenshot" = "hyprland";
+    "org.freedesktop.impl.portal.FileChooser" = "gtk";
+  };
 
   wayland.windowManager.hyprland.enable = true; # enable Hyprland
 
