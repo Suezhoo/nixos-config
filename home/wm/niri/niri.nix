@@ -108,6 +108,12 @@
         position x=4480 y=180
     }
 
+    // Work around NVIDIA cursor-plane corruption. The cursor is composited
+    // into the frame instead of using the hardware cursor plane.
+    debug {
+        disable-cursor-plane
+    }
+
 
     // Settings that influence how windows are positioned and sized.
     // Find more information on the wiki:
