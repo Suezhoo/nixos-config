@@ -87,25 +87,25 @@
 
     // -- Monitors --------------------------------------------------------------
 
-    output "DP-4" {                           // Iiyama (left)
-    mode "1920x1080@144.001"                // highest listed for DP-4
-    scale 1.0
-    transform "normal"
-    position x=0 y=0
+    output "DP-4" {                           // Zowie XL LCD (left)
+        mode "1920x1080@239.760"
+        scale 1.0
+        transform "normal"
+        position x=0 y=0
     }
 
-    output "DP-2" {                           // Zowie (center)
-    mode "1920x1080@239.760"                // highest listed for DP-2
-    scale 1.0
-    transform "normal"
-    position x=1920 y=0
+    output "DP-3" {                           // Sony INZONE M10S (center)
+        mode "2560x1440@479.989"
+        scale 1.0
+        transform "normal"
+        position x=1920 y=0
     }
 
-    output "HDMI-A-2" {                       // Messeltronik (right)
-    mode "1920x1080@60.000"                 // highest listed for HDMI-A-2
-    scale 1.0
-    transform "normal"
-    position x=3840 y=0
+    output "DP-2" {                           // Iiyama PLG2488H (right)
+        mode "1920x1080@144.001"
+        scale 1.0
+        transform "normal"
+        position x=4480 y=0
     }
 
 
