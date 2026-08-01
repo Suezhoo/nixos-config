@@ -11,7 +11,7 @@
     steam
     vesktop
     obsidian
-    spotify
+    pkgs-unstable.spotify
 
     pkgs-unstable.codex
   ];
