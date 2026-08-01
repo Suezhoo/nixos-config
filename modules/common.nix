@@ -106,6 +106,7 @@
     zed-editor
 
     pavucontrol # audio
+    wdisplays # for arranging display layout
   ];
 
   # Enable Electron apps for Wayland
