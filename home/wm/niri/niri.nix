@@ -594,7 +594,7 @@
         // Mod+Space       { switch-layout "next"; }
         // Mod+Shift+Space { switch-layout "prev"; }
 
-        Print { screenshot; }
+        Mod+Shift+S hotkey-overlay-title="Take a Screenshot" { screenshot; }
         Ctrl+Print { screenshot-screen; }
         Alt+Print { screenshot-window; }
 
