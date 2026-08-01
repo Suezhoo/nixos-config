@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  pkgs-unstable,
+  ...
+}: {
   home.stateVersion = "25.05";
 
   # user only packages
@@ -8,6 +12,8 @@
     vesktop
     obsidian
     spotify
+
+    pkgs-unstable.codex
   ];
 
   imports = [

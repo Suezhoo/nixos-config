@@ -30,9 +30,14 @@
       inputs.plasma-manager.homeModules.plasma-manager
     ];
 
-    # Pass host to HM modules
+    # Pass host and pkgs-unstable to HM modules
     extraSpecialArgs = {
       host = config.networking.hostName;
+
+      pkgs-unstable = import inputs.nixpkgs-unstable {
+        system = pkgs.system;
+        config.allowUnfree = true;
+      };
     };
   };
 
