@@ -107,6 +107,7 @@
 
     pavucontrol # audio
     wdisplays # for arranging display layout
+    swaylock # lock screen
   ];
 
   # Enable Electron apps for Wayland

@@ -35,6 +35,7 @@
     ../shell/waybar
     ../shell/wofi
     ../shell/wallpaper
+    ../shell/swaylock
 
     # Nvidia
     ../desktop/nvidia-session.nix
