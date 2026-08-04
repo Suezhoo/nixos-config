@@ -8,6 +8,7 @@
     ./hardware-configuration.nix
     ../../modules/common.nix
     ../../modules/hyprland.nix
+    ../../modules/qylock.nix
   ];
 
   networking.hostName = "sayonara";
