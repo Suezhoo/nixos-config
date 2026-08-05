@@ -5,6 +5,8 @@
   host,
   ...
 }: {
+  home.packages = [pkgs.nerd-fonts.jetbrains-mono];
+
   programs.waybar = {
     enable = true;
 
@@ -17,7 +19,7 @@
         position = "top";
         height = 32;
 
-        modules-left = ["hyprland/workspaces" "niri/workspaces" "niri/window"];
+        modules-left = ["custom/os" "hyprland/workspaces" "niri/workspaces" "niri/window"];
         modules-center = ["custom/host"];
         # 👇 add GPU info next to clock
         modules-right = ["custom/gpu" "pulseaudio" "clock" "network" "tray"];
@@ -32,6 +34,27 @@
         "custom/host" = {
           format = "${config.home.username}@${host}";
           tooltip = false;
+        };
+
+        "custom/os" = {
+          exec = pkgs.writeShellScript "waybar-distro-icon" ''
+            . /etc/os-release
+
+            case "$ID" in
+              nixos) icon="󱄅" ;;
+              arch) icon="" ;;
+              fedora) icon="" ;;
+              ubuntu) icon="" ;;
+              *) icon="" ;;
+            esac
+
+            ${pkgs.jq}/bin/jq -nc \
+              --arg text "$icon" \
+              --arg tooltip "''${PRETTY_NAME:-$ID}" \
+              '{text: $text, tooltip: $tooltip}'
+          '';
+          interval = "once";
+          return-type = "json";
         };
 
         # 🧩 GPU usage + temp via nvidia-smi
