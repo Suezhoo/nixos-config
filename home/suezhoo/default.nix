@@ -7,7 +7,6 @@
 
   # user only packages
   home.packages = with pkgs; [
-    zed-editor
     steam
     obsidian
 
@@ -22,6 +21,7 @@
     ../apps/kitty.nix
     ../apps/vesktop.nix
     ../apps/obs.nix
+    ../apps/zed.nix
 
     # Dev things
     ../dev/nix-tools.nix

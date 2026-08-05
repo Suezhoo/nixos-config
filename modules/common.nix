@@ -106,7 +106,6 @@
     kitty-themes
     foot
     fastfetch
-    zed-editor
 
     pavucontrol # audio
     wdisplays # for arranging display layout
