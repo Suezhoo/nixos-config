@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  inputs,
+  pkgs,
+  ...
+}: {
   # Enable modern CLI + flakes permanently
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
@@ -86,6 +90,10 @@
   services.udisks2.enable = true;
   services.gvfs.enable = true;
 
+  # Install access rules for Logitech wireless receivers. Use the newer
+  # Solaar release because the stable 25.05 version predates PRO X 2 support.
+  hardware.logitech.wireless.enable = true;
+
   # Required for Home Manager's desktop appearance settings.
   programs.dconf.enable = true;
 
@@ -106,6 +114,7 @@
     kitty-themes
     foot
     fastfetch
+    inputs.nixpkgs-unstable.legacyPackages.${pkgs.system}.solaar
 
     pavucontrol # audio
     wdisplays # for arranging display layout

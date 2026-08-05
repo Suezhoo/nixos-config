@@ -62,7 +62,8 @@
             // off
             // natural-scroll
             // accel-speed 0.2
-            // accel-profile "flat"
+            // Use unaccelerated 1:1 pointer motion for every connected mouse.
+            accel-profile "flat"
             // scroll-method "no-scroll"
         }
 
