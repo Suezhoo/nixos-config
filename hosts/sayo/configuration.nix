@@ -31,10 +31,6 @@
     # additional desktop configuration files.
     backupFileExtension = "hm-backup-20260805";
 
-    sharedModules = [
-      inputs.plasma-manager.homeModules.plasma-manager
-    ];
-
     # Pass host and pkgs-unstable to HM modules
     extraSpecialArgs = {
       host = config.networking.hostName;
@@ -54,10 +50,9 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.grub.enable = false;
 
-  # KDE Plasma desktop
+  # SDDM login screen for Niri.
   services.xserver.enable = true;
   services.displayManager.sddm.enable = true;
-  services.desktopManager.plasma6.enable = true;
 
   # SDDM starts before the user's Niri session, so it needs its own monitor
   # layout. Keep this in sync with home/wm/niri/niri.nix.

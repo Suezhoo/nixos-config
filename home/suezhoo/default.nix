@@ -27,7 +27,6 @@
     ../dev/nix-tools.nix
 
     # window manager (wm)
-    ../wm/plasma
     ../wm/hypr
     ../wm/niri
 

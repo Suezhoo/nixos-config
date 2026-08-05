@@ -10,7 +10,7 @@
   time.timeZone = "Europe/Brussels";
   i18n.defaultLocale = "en_US.UTF-8";
 
-  # Network connections and Plasma's network controls.
+  # Network connections and desktop network controls.
   networking.networkmanager.enable = true;
 
   # Firmware for hardware such as Wi-Fi, audio, and other peripherals.

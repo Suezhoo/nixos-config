@@ -29,10 +29,6 @@
     # additional desktop configuration files.
     backupFileExtension = "hm-backup-20260805";
 
-    sharedModules = [
-      inputs.plasma-manager.homeModules.plasma-manager
-    ];
-
     # Pass host and pkgs-unstable to HM modules
     extraSpecialArgs = {
       host = config.networking.hostName;
@@ -52,10 +48,9 @@
   boot.loader.grub.device = "/dev/sda";
   boot.loader.grub.useOSProber = true;
 
-  # KDE Plasma desktop
+  # SDDM login screen for the Wayland sessions.
   services.xserver.enable = true;
   services.displayManager.sddm.enable = true;
-  services.desktopManager.plasma6.enable = true;
 
   # Niri
   services.displayManager.sessionPackages = [pkgs.niri];
