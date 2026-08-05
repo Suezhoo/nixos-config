@@ -86,6 +86,9 @@
   services.udisks2.enable = true;
   services.gvfs.enable = true;
 
+  # Required for Home Manager's desktop appearance settings.
+  programs.dconf.enable = true;
+
   # Compressed RAM-backed swap for extra protection under memory pressure.
   zramSwap.enable = true;
 

@@ -28,7 +28,9 @@
     useGlobalPkgs = true;
     useUserPackages = true;
     users.suezhoo = import ../../home/suezhoo;
-    backupFileExtension = "hm-backup";
+    # Keep older .hm-backup files intact when Home Manager first takes over
+    # additional desktop configuration files.
+    backupFileExtension = "hm-backup-20260805";
 
     sharedModules = [
       inputs.plasma-manager.homeModules.plasma-manager
