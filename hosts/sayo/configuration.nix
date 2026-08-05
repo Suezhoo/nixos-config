@@ -10,7 +10,6 @@
     ../../modules/hyprland.nix
     ../../modules/niri.nix
     ../../modules/qylock.nix
-    ../../modules/mount-windows.nix
     ../../modules/gpu/nvidia.nix
   ];
 
