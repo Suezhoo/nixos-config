@@ -3,8 +3,14 @@
   config,
   pkgs,
   lib,
+  inputs,
   ...
-}: {
+}: let
+  pkgs-unstable = import inputs.nixpkgs-unstable {
+    system = pkgs.system;
+    config.allowUnfree = true;
+  };
+in {
   # Use the NVIDIA driver
   services.xserver.videoDrivers = ["nvidia"];
 
@@ -27,4 +33,8 @@
       vulkan-tools
     ];
   };
+
+  # `nvidia-settings` cannot expose Digital Vibrance controls to a Wayland
+  # compositor. nvibrant talks to the NVIDIA modesetting driver directly.
+  environment.systemPackages = [pkgs-unstable.nvibrant];
 }
