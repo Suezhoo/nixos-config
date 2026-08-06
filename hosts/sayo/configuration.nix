@@ -41,7 +41,6 @@
       };
     };
   };
-
   # Allow unfree (apps like steam etc)
   nixpkgs.config.allowUnfree = true;
 
@@ -58,9 +57,9 @@
   # layout. Keep this in sync with home/wm/niri/niri.nix.
   services.xserver.displayManager.setupCommands = ''
     ${pkgs.xorg.xrandr}/bin/xrandr \
-      --output DP-4 --mode 1920x1080 --pos 0x180 \
+      --output DP-2 --mode 1920x1080 --pos 0x180 \
       --output DP-3 --primary --mode 2560x1440 --pos 1920x0 \
-      --output DP-2 --mode 1920x1080 --pos 4480x180
+      --output DP-4 --mode 1920x1080 --pos 4480x180
   '';
 
   # Pin to installed NixOS release; dont bump casually.

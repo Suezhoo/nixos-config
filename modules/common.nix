@@ -102,6 +102,9 @@
   # Compressed RAM-backed swap for extra protection under memory pressure.
   zramSwap.enable = true;
 
+  # Enable ratbagd for Piper (Mouse setting manager GUI)
+  services.ratbagd.enable = true;
+
   # Handy tools
   environment.systemPackages = with pkgs; [
     git
@@ -116,8 +119,8 @@
     kitty-themes
     foot
     fastfetch
-    inputs.nixpkgs-unstable.legacyPackages.${pkgs.system}.solaar
 
+    piper # mice gui
     pavucontrol # audio
     wdisplays # for arranging display layout
   ];
