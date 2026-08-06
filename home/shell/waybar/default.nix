@@ -63,10 +63,10 @@
   commonBar = {
     layer = "bottom";
     "margin-top" = 10;
-    "margin-left" = 20;
-    "margin-right" = 20;
+    "margin-left" = 10;
+    "margin-right" = 10;
     position = "top";
-    height = 32;
+    height = 48;
 
     modules-center = ["custom/host"];
     modules-right = ["custom/gpu" "pulseaudio" "clock" "network" "tray"];
@@ -154,6 +154,7 @@
   };
 in {
   home.packages = with pkgs; [
+    nerd-fonts.monaspace
     nerd-fonts.jetbrains-mono
     noto-fonts-cjk-sans
     waybarSession

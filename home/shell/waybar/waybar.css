@@ -1,14 +1,33 @@
+@define-color background #1E1E2E; /* purple-ish black */
+@define-color background-transparent alpha(@background, 0.90);
+
+@define-color foreground #f1fffa; /* mint cream */
+@define-color dusty-mauve #A288A6; /* dusty mauve */
+@define-color lilac-ash #BB9BB0; /* lilac ash */
+
 * {
-  font-family: "JetBrainsMono Nerd Font", "Noto Sans CJK JP", "Noto Sans CJK KR", "Noto Sans CJK SC", JetBrainsMono, sans-serif;
+  font-family:
+    "Ubuntu", "MonaspiceNe Nerd Font", "JetBrainsMono Nerd Font",
+    "Noto Sans CJK JP", "Noto Sans CJK KR", "Noto Sans CJK SC", monospace;
   font-size: 14px;
-  color: rgb(30, 30, 30);
 }
 
-#waybar {
-  background: rgba(220, 223, 225, 0.9);
-  border-radius: 10px;
+window#waybar {
+  background-color: transparent;
+  background-image: none;
+  color: @foreground;
   border: none;
   box-shadow: none;
+}
+
+window#waybar > box {
+  background-color: @background-transparent;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+#custom-host {
+  color: @lilac-ash;
 }
 
 #custom-os {

@@ -3,6 +3,8 @@
   pkgs,
   ...
 }: {
+  imports = [./fonts.nix];
+
   # Enable modern CLI + flakes permanently
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
