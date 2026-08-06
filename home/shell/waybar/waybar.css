@@ -4,12 +4,14 @@
 @define-color foreground #f1fffa; /* mint cream */
 @define-color dusty-mauve #A288A6; /* dusty mauve */
 @define-color lilac-ash #BB9BB0; /* lilac ash */
+@define-color teal #488286; /* teal */
+
+/* Shared theme ----------------------------------------------------------- */
 
 * {
   font-family:
     "Ubuntu", "MonaspiceNe Nerd Font", "JetBrainsMono Nerd Font",
     "Noto Sans CJK JP", "Noto Sans CJK KR", "Noto Sans CJK SC", monospace;
-  font-size: 14px;
 }
 
 window#waybar {
@@ -21,52 +23,119 @@ window#waybar {
 }
 
 window#waybar > box {
-  background-color: @background-transparent;
-  border-radius: 10px;
-  padding: 10px;
+  background-color: @background;
 }
 
-#custom-host {
-  color: @lilac-ash;
-}
-
+#custom-host,
 #custom-os {
-  font-size: 18px;
-  padding: 0 8px;
   color: @lilac-ash;
 }
 
-#workspaces {
-  background: rgba(30, 30, 30, 0.12);
-  border-radius: 16px;
-  padding: 2px 6px;
+#custom-power {
+  color: @lilac-ash;
 }
 
 #workspaces button {
-  min-width: 18px;
-  padding: 0 3px;
-  color: rgb(100, 105, 110);
+  color: @foreground;
   background: transparent;
   border: none;
-  border-radius: 50%;
   box-shadow: none;
   text-shadow: none;
 }
 
 #workspaces button.active,
 #workspaces button.focused {
-  color: rgb(245, 245, 245);
-  background: rgb(65, 110, 180);
+  color: @foreground;
+  background: @dusty-mauve;
 }
 
 #workspaces button:hover {
-  color: rgb(65, 110, 180);
-  background: rgba(65, 110, 180, 0.12);
+  color: @teal;
+  background: alpha(@teal, 0.18);
   box-shadow: none;
 }
 
-#clock {
-  padding: 4px 2px;
-  margin-left: 6px;
-  margin-right: 6px;
+/* Side profile: DP-2 and DP-4, 36px bar ------------------------------- */
+
+window#waybar.side * {
+  font-size: 12px;
+}
+
+window#waybar.side > box {
+  border-radius: 10px;
+  padding: 5px 8px;
+}
+
+window#waybar.side #custom-os {
+  font-size: 24px;
+  padding: 0 6px;
+  margin-right: 12px;
+}
+
+window#waybar.side #custom-host {
+  padding: 0 10px;
+}
+
+window#waybar.side #workspaces {
+  border-radius: 5px;
+  padding: 2px 6px;
+}
+
+window#waybar.side #workspaces button {
+  min-width: 18px;
+  padding: 0 3px;
+  margin: 0 3px;
+  border-radius: 5px;
+}
+
+window#waybar.side #custom-gpu,
+window#waybar.side #pulseaudio,
+window#waybar.side #clock,
+window#waybar.side #network,
+window#waybar.side #tray,
+window#waybar.side #custom-power {
+  padding: 0 8px;
+}
+
+/* Main profile: DP-3, 48px bar ----------------------------------------- */
+
+window#waybar.main * {
+  font-size: 14px;
+}
+
+window#waybar.main > box {
+  border-radius: 13px;
+  padding: 7px 10px;
+}
+
+window#waybar.main #custom-os {
+  font-size: 32px;
+  padding: 0 8px;
+  margin-right: 16px;
+}
+
+window#waybar.main #custom-host {
+  padding: 0 13px;
+}
+
+window#waybar.main #workspaces {
+  border-radius: 7px;
+  padding: 3px 8px;
+  margin: 0 8px;
+}
+
+window#waybar.main #workspaces button {
+  min-width: 24px;
+  padding: 0 4px;
+  margin: 0 4px;
+  border-radius: 7px;
+}
+
+window#waybar.main #custom-gpu,
+window#waybar.main #pulseaudio,
+window#waybar.main #clock,
+window#waybar.main #network,
+window#waybar.main #tray,
+window#waybar.main #custom-power {
+  padding: 0 11px;
 }

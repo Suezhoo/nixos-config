@@ -4,18 +4,57 @@
   host,
   ...
 }: let
+  powerMenu = pkgs.writeShellApplication {
+    name = "waybar-power-menu";
+    runtimeInputs = [pkgs.systemd pkgs.wofi];
+    text = ''
+      action="$(${pkgs.wofi}/bin/wofi \
+        --dmenu \
+        --prompt "Power" \
+        <<< $'Lock\nLog out\nReboot\nShut down')"
+
+      [[ -n "$action" ]] || exit 0
+
+      if [[ "$action" == "Lock" ]]; then
+        exec qylock-lock
+      fi
+
+      confirmation="$(${pkgs.wofi}/bin/wofi \
+        --dmenu \
+        --prompt "$action?" \
+        <<< $'Cancel\nConfirm')"
+
+      [[ "$confirmation" == "Confirm" ]] || exit 0
+
+      case "$action" in
+        "Log out")
+          if [[ -n "''${NIRI_SOCKET:-}" ]]; then
+            exec niri msg action quit --skip-confirmation
+          elif [[ -n "''${HYPRLAND_INSTANCE_SIGNATURE:-}" ]]; then
+            exec hyprctl dispatch exit
+          else
+            echo "waybar-power-menu: unsupported desktop session" >&2
+            exit 1
+          fi
+          ;;
+        "Reboot") exec systemctl reboot ;;
+        "Shut down") exec systemctl poweroff ;;
+      esac
+    '';
+  };
+
   workspaceVariants = [
     {
-      name = "japanese";
-      icons = {
-        "1" = "いち";
-        "2" = "に";
-        "3" = "さん";
-        "4" = "よん";
-        default = "〇";
-      };
-    }
-    {
+      #   name = "japanese";
+      #   icons = {
+      #     "1" = "いち";
+      #     "2" = "に";
+      #     "3" = "さん";
+      #     "4" = "よん";
+      #     default = "〇";
+      #   };
+      # }
+      # {
       name = "korean";
       icons = {
         "1" = "하나";
@@ -24,26 +63,26 @@
         "4" = "넷";
         default = "〇";
       };
-    }
-    {
-      name = "chinese";
-      icons = {
-        "1" = "一";
-        "2" = "二";
-        "3" = "三";
-        "4" = "四";
-        default = "〇";
-      };
-    }
-    {
-      name = "english";
-      icons = {
-        "1" = "1";
-        "2" = "2";
-        "3" = "3";
-        "4" = "4";
-        default = "0";
-      };
+      # }
+      # {
+      #   name = "chinese";
+      #   icons = {
+      #     "1" = "一";
+      #     "2" = "二";
+      #     "3" = "三";
+      #     "4" = "四";
+      #     default = "〇";
+      #   };
+      # }
+      # {
+      #   name = "english";
+      #   icons = {
+      #     "1" = "1";
+      #     "2" = "2";
+      #     "3" = "3";
+      #     "4" = "4";
+      #     default = "0";
+      #   };
     }
   ];
 
@@ -66,16 +105,15 @@
     "margin-left" = 10;
     "margin-right" = 10;
     position = "top";
-    height = 48;
 
     modules-center = ["custom/host"];
-    modules-right = ["custom/gpu" "pulseaudio" "clock" "network" "tray"];
+    modules-right = ["custom/gpu" "pulseaudio" "network" "tray" "clock" "custom/power"];
 
     clock = {
       interval = 1;
-      format = "{:%Y-%m-%d | %H:%M:%S}";
+      format = "{:%d %a • %H:%M}";
       tooltip = true;
-      tooltip-format = "{:L%Y %m %d, %A}";
+      tooltip-format = "{:L%Y %m %d, %A, %H:%M:%S}";
     };
 
     "custom/host" = {
@@ -102,6 +140,13 @@
       '';
       interval = "once";
       return-type = "json";
+    };
+
+    "custom/power" = {
+      format = "";
+      tooltip = true;
+      tooltip-format = "Power menu";
+      on-click = "${powerMenu}/bin/waybar-power-menu";
     };
 
     "custom/gpu" = {
@@ -132,9 +177,27 @@
     // workspaceSettings compositor
     // {modules-left = ["custom/os"] ++ workspaceModules compositor;};
 
+  # Keep the bar at the same proportion of each monitor's physical height:
+  # 36 / 1080 = 48 / 1440 = 3.33%.
+  outputBars = [
+    {
+      name = "side";
+      output = ["DP-2" "DP-4"];
+      height = 36;
+    }
+    {
+      name = "main";
+      output = "DP-3";
+      height = 48;
+    }
+  ];
+
+  mkBars = compositor:
+    map (outputBar: (mkBar compositor) // outputBar) outputBars;
+
   json = pkgs.formats.json {};
-  niriConfig = json.generate "waybar-config-niri.json" [(mkBar "niri")];
-  hyprlandConfig = json.generate "waybar-config-hyprland.json" [(mkBar "hyprland")];
+  niriConfig = json.generate "waybar-config-niri.json" (mkBars "niri");
+  hyprlandConfig = json.generate "waybar-config-hyprland.json" (mkBars "hyprland");
 
   waybarSession = pkgs.writeShellApplication {
     name = "waybar-session";

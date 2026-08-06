@@ -1,19 +1,30 @@
 {
   config,
+  lib,
   pkgs,
   inputs,
+  homeProfile,
+  desktopShell,
   ...
 }: {
-  imports = [
-    ./hardware-configuration.nix
-    ../../modules/common.nix
-    ../../modules/hyprland.nix
-    ../../modules/niri.nix
-    ../../modules/qylock.nix
-    ../../modules/gpu/nvidia.nix
-  ];
+  imports =
+    [
+      ./hardware-configuration.nix
+      ../../modules/common.nix
+      ../../modules/niri.nix
+      ../../modules/gpu/nvidia.nix
+    ]
+    ++ lib.optionals (desktopShell == "custom") [
+      ../../modules/hyprland.nix
+      ../../modules/qylock.nix
+    ];
 
   networking.hostName = "sayo";
+
+  # Services used by the integrated shell control centres.
+  hardware.bluetooth.enable = desktopShell != "custom";
+  services.upower.enable = desktopShell != "custom";
+  services.power-profiles-daemon.enable = desktopShell != "custom";
 
   # define the user
   users.groups.Suezhoo = {};
@@ -26,7 +37,7 @@
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
-    users.suezhoo = import ../../home/suezhoo;
+    users.suezhoo = import homeProfile;
     # Keep older .hm-backup files intact when Home Manager first takes over
     # additional desktop configuration files.
     backupFileExtension = "hm-backup-20260805";
@@ -34,6 +45,7 @@
     # Pass host and pkgs-unstable to HM modules
     extraSpecialArgs = {
       host = config.networking.hostName;
+      inherit inputs desktopShell;
 
       pkgs-unstable = import inputs.nixpkgs-unstable {
         system = pkgs.system;

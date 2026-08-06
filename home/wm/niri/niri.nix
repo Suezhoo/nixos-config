@@ -1,4 +1,5 @@
 {
+  desktopShell,
   host,
   pkgs,
   ...
@@ -277,8 +278,14 @@
     // which may be more convenient to use.
     // See the binds section below for more spawn examples.
 
-    // This line starts waybar, a commonly used bar for Wayland compositors.
-    spawn-at-startup "waybar-session"
+    // Start exactly one desktop shell for the selected system profile.
+    ${
+      if desktopShell == "noctalia"
+      then ''spawn-at-startup "noctalia"''
+      else if desktopShell == "inir"
+      then ''spawn-at-startup "inir" "run" "--session"''
+      else ''spawn-at-startup "waybar-session"''
+    }
 
     // To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
     // spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"
@@ -373,8 +380,20 @@
 
         // Suggested binds for running programs: terminal, app launcher, screen locker.
         Mod+T hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
-        Mod+D hotkey-overlay-title="Run an Application: wofi" { spawn "wofi" "--show" "drun"; }
-        Super+Alt+L hotkey-overlay-title="Lock the Screen: qylock" { spawn "qylock-lock"; }
+        ${
+      if desktopShell == "noctalia"
+      then ''Mod+D hotkey-overlay-title="Open Noctalia Launcher" { spawn "noctalia" "msg" "panel-toggle" "launcher"; }''
+      else if desktopShell == "inir"
+      then ''Mod+D hotkey-overlay-title="Open iNiR Search" { spawn "inir" "ipc" "overlay" "toggle"; }''
+      else ''Mod+D hotkey-overlay-title="Run an Application: wofi" { spawn "wofi" "--show" "drun"; }''
+    }
+        ${
+      if desktopShell == "noctalia"
+      then ''Super+Alt+L hotkey-overlay-title="Lock with Noctalia" { spawn "noctalia" "msg" "session" "lock"; }''
+      else if desktopShell == "inir"
+      then ''Super+Alt+L hotkey-overlay-title="Lock with iNiR" { spawn "inir" "ipc" "lock" "activate"; }''
+      else ''Super+Alt+L hotkey-overlay-title="Lock the Screen: qylock" { spawn "qylock-lock"; }''
+    }
 
         // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
         // Note: the entire command goes as a single argument. It's passed verbatim to `sh -c`.

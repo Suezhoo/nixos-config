@@ -11,10 +11,15 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
+    # Complete desktop shells for the optional Niri profiles. Let both inputs
+    # retain their own nixpkgs pins so their current Quickshell/Qt stacks stay
+    # compatible with the shells while this system remains on NixOS 25.05.
+    noctalia.url = "github:noctalia-dev/noctalia/cachix";
+    inir.url = "github:snowarch/iNiR";
+
     # HM
     home-manager.url = "github:nix-community/home-manager/release-25.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-
   };
 
   outputs = inputs @ {
@@ -22,20 +27,40 @@
     nixpkgs,
     home-manager,
     ...
-  }: {
-    nixosConfigurations = {
-      # Desktop
-      sayo = nixpkgs.lib.nixosSystem {
+  }: let
+    mkSayo = {
+      homeProfile,
+      desktopShell,
+    }:
+      nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        # Make flake inputs available inside hosts/{hostname}/configuration.nix
-        specialArgs = {inherit inputs;};
-
+        specialArgs = {
+          inherit inputs homeProfile desktopShell;
+        };
         modules = [
           ./hosts/sayo/configuration.nix
-
-          # HM
           home-manager.nixosModules.home-manager
         ];
+      };
+  in {
+    nixosConfigurations = {
+      # Desktop profiles. `sayo` remains an alias for the personal rice so
+      # existing rebuild commands continue to work.
+      sayo = mkSayo {
+        homeProfile = ./home/suezhoo;
+        desktopShell = "custom";
+      };
+      sayo-custom = mkSayo {
+        homeProfile = ./home/suezhoo;
+        desktopShell = "custom";
+      };
+      sayo-noctalia = mkSayo {
+        homeProfile = ./home/suezhoo/noctalia.nix;
+        desktopShell = "noctalia";
+      };
+      sayo-inir = mkSayo {
+        homeProfile = ./home/suezhoo/inir.nix;
+        desktopShell = "inir";
       };
       # VM
       sayonara = nixpkgs.lib.nixosSystem {
