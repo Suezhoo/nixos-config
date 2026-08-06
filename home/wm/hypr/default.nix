@@ -63,7 +63,7 @@
       # "$terminal"
       # "nm-applet &"
       # "waybar & hyprpaper & firefox"
-      "waybar"
+      "waybar-session"
     ];
 
     #############################
