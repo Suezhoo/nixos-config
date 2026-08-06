@@ -33,6 +33,7 @@ window#waybar > box {
 #custom-os {
   font-size: 18px;
   padding: 0 8px;
+  color: @lilac-ash;
 }
 
 #workspaces {
