@@ -278,13 +278,13 @@
     // which may be more convenient to use.
     // See the binds section below for more spawn examples.
 
-    // Start exactly one desktop shell for the selected system profile.
+    // Noctalia and the custom Waybar are Home Manager services, allowing a
+    // profile switch to stop the old shell and start the selected one. iNiR
+    // does not currently expose an equivalent Home Manager service.
     ${
-      if desktopShell == "noctalia"
-      then ''spawn-at-startup "noctalia"''
-      else if desktopShell == "inir"
+      if desktopShell == "inir"
       then ''spawn-at-startup "inir" "run" "--session"''
-      else ''spawn-at-startup "waybar-session"''
+      else ""
     }
 
     // To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:

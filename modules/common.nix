@@ -119,6 +119,7 @@
     kitty-themes
     foot
     fastfetch
+    # kdePackages.dolphin # file explorer
 
     piper # mice gui
     pavucontrol # audio

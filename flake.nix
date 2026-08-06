@@ -47,8 +47,8 @@
       # Desktop profiles. `sayo` remains an alias for the personal rice so
       # existing rebuild commands continue to work.
       sayo = mkSayo {
-        homeProfile = ./home/suezhoo;
-        desktopShell = "custom";
+        homeProfile = ./home/suezhoo/noctalia.nix;
+        desktopShell = "noctalia";
       };
       sayo-custom = mkSayo {
         homeProfile = ./home/suezhoo;

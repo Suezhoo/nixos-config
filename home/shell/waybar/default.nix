@@ -1,5 +1,6 @@
 {
   config,
+  lib,
   pkgs,
   host,
   ...
@@ -225,8 +226,14 @@ in {
 
   programs.waybar = {
     enable = true;
+    systemd.enable = true;
     style = builtins.readFile ./waybar.css;
   };
+
+  # The stock Waybar unit uses its default config.  Keep the service lifecycle
+  # while retaining our wrapper that selects the Niri or Hyprland config.
+  systemd.user.services.waybar.Service.ExecStart =
+    lib.mkForce "${waybarSession}/bin/waybar-session";
 
   xdg.configFile = {
     "waybar/config-niri".source = niriConfig;
