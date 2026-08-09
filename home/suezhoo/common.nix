@@ -17,6 +17,7 @@
 
   imports = [
     # Apps
+    ../apps/brave.nix
     ../apps/codium.nix
     ../apps/kitty.nix
     ../apps/vesktop.nix
