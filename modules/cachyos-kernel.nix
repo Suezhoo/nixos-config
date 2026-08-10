@@ -1,5 +1,7 @@
 {
+  config,
   inputs,
+  lib,
   pkgs,
   ...
 }: {
@@ -19,4 +21,13 @@
   # an ordinary declarative NixOS configuration with generations and rollback.
   boot.kernelPackages =
     pkgs.cachyosKernels.linuxPackages-cachyos-latest;
+
+  # NixOS 25.05 expects kernel modules in the kernel's default output, while
+  # current nixpkgs kernels expose them as a separate `modules` output. Point
+  # the module closure at that output while retaining out-of-tree modules such
+  # as the NVIDIA open kernel module.
+  system.modulesTree = lib.mkForce (
+    [config.boot.kernelPackages.kernel.modules]
+    ++ config.boot.extraModulePackages
+  );
 }
