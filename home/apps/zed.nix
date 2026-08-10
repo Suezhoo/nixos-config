@@ -7,8 +7,7 @@
   # also exposing the conventional `zed` command used by Zed's documentation.
   zedWithCli = pkgs.symlinkJoin {
     name = "zed-editor-with-cli";
-    # The 25.05 package is Zed 0.189.5 and repeatedly loses its graphics
-    # surface under Niri. Our pinned unstable input provides the current Zed.
+    # Use the pinned unstable release to keep Zed current.
     paths = [pkgs-unstable.zed-editor];
     postBuild = ''
       ln -s zeditor $out/bin/zed
@@ -51,8 +50,8 @@ in {
     extraPackages = with pkgs; [
       alejandra
       nil
-      nodePackages.prettier
-      nodePackages.eslint
+      prettier
+      eslint
     ];
 
     extensions = [

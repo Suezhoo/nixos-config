@@ -49,7 +49,7 @@
       inherit inputs desktopShell;
 
       pkgs-unstable = import inputs.nixpkgs-unstable {
-        system = pkgs.system;
+        system = pkgs.stdenv.hostPlatform.system;
         config.allowUnfree = true;
       };
     };
@@ -69,7 +69,7 @@
   # SDDM starts before the user's Niri session, so it needs its own monitor
   # layout. Keep this in sync with home/wm/niri/niri.nix.
   services.xserver.displayManager.setupCommands = ''
-    ${pkgs.xorg.xrandr}/bin/xrandr \
+    ${pkgs.xrandr}/bin/xrandr \
       --output DP-2 --mode 1920x1080 --pos 0x180 \
       --output DP-3 --primary --mode 2560x1440 --pos 1920x0 \
       --output DP-4 --mode 1920x1080 --pos 4480x180

@@ -1,5 +1,5 @@
 {pkgs, ...}: {
-  programs.vscode = {
+  programs.vscodium = {
     enable = true;
 
     # Use VSCodium instead of VS Code

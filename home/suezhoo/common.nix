@@ -47,6 +47,12 @@
       package = pkgs.gnome-themes-extra;
     };
 
+    # Preserve the pre-26.05 behavior for GTK 4 applications.
+    gtk4.theme = {
+      name = "Adwaita-dark";
+      package = pkgs.gnome-themes-extra;
+    };
+
     gtk3.extraConfig.gtk-application-prefer-dark-theme = true;
     gtk4.extraConfig.gtk-application-prefer-dark-theme = true;
   };
@@ -70,8 +76,10 @@
   #  (optional) small Quality of Life
   programs.git = {
     enable = true;
-    userName = "Suezhoo";
-    userEmail = "suezhoo@outlook.com";
-    extraConfig.init.defaultBranch = "main";
+    settings = {
+      user.name = "Suezhoo";
+      user.email = "suezhoo@outlook.com";
+      init.defaultBranch = "main";
+    };
   };
 }

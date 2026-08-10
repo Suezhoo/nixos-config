@@ -11,7 +11,7 @@
   };
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     # Prebuilt CachyOS-patched kernels for NixOS. Keep this input's own
@@ -26,12 +26,12 @@
 
     # Complete desktop shells for the optional Niri profiles. Let both inputs
     # retain their own nixpkgs pins so their current Quickshell/Qt stacks stay
-    # compatible with the shells while this system remains on NixOS 25.05.
+    # compatible with the shells while the base system remains on stable NixOS.
     noctalia.url = "github:noctalia-dev/noctalia/cachix";
     inir.url = "github:snowarch/iNiR";
 
     # HM
-    home-manager.url = "github:nix-community/home-manager/release-25.05";
+    home-manager.url = "github:nix-community/home-manager/release-26.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
 
@@ -39,7 +39,6 @@
     self,
     nixpkgs,
     home-manager,
-    nix-cachyos-kernel,
     ...
   }: let
     mkSayo = {
@@ -54,22 +53,10 @@
         modules = [
           # cachyos kernel
           (
-            {
-              config,
-              lib,
-              pkgs,
-              ...
-            }: {
+            {pkgs, ...}: {
               nixpkgs.overlays = [inputs.nix-cachyos-kernel.overlays.pinned];
 
               boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest;
-
-              # NixOS 25.05 expects modules in the kernel's default output,
-              # while current CachyOS kernels provide a separate modules output.
-              system.modulesTree = lib.mkForce (
-                [config.boot.kernelPackages.kernel.modules]
-                ++ config.boot.extraModulePackages
-              );
             }
           )
 

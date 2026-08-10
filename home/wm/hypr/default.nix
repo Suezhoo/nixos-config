@@ -13,6 +13,7 @@
   };
 
   wayland.windowManager.hyprland.enable = true; # enable Hyprland
+  wayland.windowManager.hyprland.configType = "hyprlang";
 
   # Required for default hyprland configuration
   programs.kitty.enable = true;

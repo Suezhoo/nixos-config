@@ -16,6 +16,6 @@
       disable_ligatures = "always";
     };
 
-    theme = "Tokyo Night";
+    themeFile = "tokyo_night_night";
   };
 }

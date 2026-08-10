@@ -92,8 +92,7 @@
   services.udisks2.enable = true;
   services.gvfs.enable = true;
 
-  # Install access rules for Logitech wireless receivers. Use the newer
-  # Solaar release because the stable 25.05 version predates PRO X 2 support.
+  # Install access rules for Logitech wireless receivers.
   hardware.logitech.wireless.enable = true;
 
   # Required for Home Manager's desktop appearance settings.
