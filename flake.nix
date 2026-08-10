@@ -1,21 +1,11 @@
 {
   description = "NixOS config for Suezhoo";
 
-  # Trust the binary cache used by the pinned CachyOS kernel release. Keeping
-  # this on the root flake makes it available to nix build/rebuild commands.
-  nixConfig = {
-    extra-substituters = ["https://attic.xuyh0120.win/lantian"];
-    extra-trusted-public-keys = [
-      "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
-    ];
-  };
-
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-    # Prebuilt CachyOS-patched kernels for NixOS. Keep this input's own
-    # nixpkgs pin so its kernel patches and binary cache stay in sync.
+    # CachyOS Kernel
     nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
 
     # SDDM and Quickshell lock-screen themes.
