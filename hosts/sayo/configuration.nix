@@ -11,6 +11,7 @@
     [
       ./hardware-configuration.nix
       ../../modules/common.nix
+      ../../modules/cachyos-kernel.nix
       ../../modules/niri.nix
       ../../modules/gpu/nvidia.nix
     ]
