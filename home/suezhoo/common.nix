@@ -32,6 +32,9 @@
 
     # Nvidia
     ../desktop/nvidia-session.nix
+
+    # Desktop appearance
+    ../desktop/cursor.nix
   ];
 
   # GTK applications need both a concrete theme and the desktop-wide
@@ -51,6 +54,17 @@
   dconf.settings."org/gnome/desktop/interface" = {
     color-scheme = "prefer-dark";
     gtk-theme = "Adwaita-dark";
+  };
+
+  # Keep desktop file handling deterministic across both shell profiles.
+  # Steam's "Browse local files" uses the inode/directory association.
+  xdg.mimeApps = {
+    enable = true;
+    defaultApplications = {
+      "inode/directory" = ["org.kde.dolphin.desktop"];
+      "text/plain" = ["dev.zed.Zed.desktop"];
+      "application/x-zerosize" = ["dev.zed.Zed.desktop"];
+    };
   };
 
   #  (optional) small Quality of Life

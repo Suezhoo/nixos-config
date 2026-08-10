@@ -118,7 +118,8 @@
     kitty-themes
     foot
     fastfetch
-    # kdePackages.dolphin # file explorer
+    kdePackages.dolphin # file explorer
+    vlc # video player
 
     piper # mice gui
     pavucontrol # audio
