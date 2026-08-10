@@ -39,6 +39,7 @@
     self,
     nixpkgs,
     home-manager,
+    nix-cachyos-kernel,
     ...
   }: let
     mkSayo = {
@@ -51,6 +52,28 @@
           inherit inputs homeProfile desktopShell;
         };
         modules = [
+          # cachyos kernel
+          (
+            {
+              config,
+              lib,
+              pkgs,
+              ...
+            }: {
+              nixpkgs.overlays = [inputs.nix-cachyos-kernel.overlays.pinned];
+
+              boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest;
+
+              # NixOS 25.05 expects modules in the kernel's default output,
+              # while current CachyOS kernels provide a separate modules output.
+              system.modulesTree = lib.mkForce (
+                [config.boot.kernelPackages.kernel.modules]
+                ++ config.boot.extraModulePackages
+              );
+            }
+          )
+
+          # other configs
           ./hosts/sayo/configuration.nix
           home-manager.nixosModules.home-manager
         ];
