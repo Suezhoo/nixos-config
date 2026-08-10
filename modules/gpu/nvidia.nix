@@ -2,7 +2,6 @@
 {
   config,
   pkgs,
-  lib,
   inputs,
   ...
 }: let
@@ -10,23 +9,14 @@
     system = pkgs.stdenv.hostPlatform.system;
     config.allowUnfree = true;
   };
-  nvidia-latest = config.boot.kernelPackages.nvidiaPackages.mkDriver {
-    version = "610.43.03";
-    sha256_64bit = "sha256-ReLUwTSiPDXlDyU6SqY+fl6NF+PRhdSgfIpY6WEu05I=";
-    sha256_aarch64 = "sha256-jSdlXo60ilXLKWKvZfgbBnVqVYuw6zhnGuiDgwxYz94=";
-    openSha256 = "sha256-QCXmqo2xNyIwjGv0da2MUC8ex641Mmc5DUI+uRFVwgE=";
-    settingsSha256 = "sha256-z/t+SdEQdVJPwjKIRHO02d264Kt47eWiOwwsaxmh4xQ=";
-    persistencedSha256 = "sha256-sOKUsAFHh0/COH+nNgbH9+7hWgivOzq4YmTuk9MOFfI=";
-  };
 in {
   # Use the NVIDIA driver
   services.xserver.videoDrivers = ["nvidia"];
 
   # Modern NVIDIA on Wayland (Ada 4080): use the open kernel module.
   hardware.nvidia = {
-    # Hashes are sourced from the pinned nixpkgs-unstable NVIDIA package.
-    # Build it against this system's kernel to keep the initrd compatible.
-    package = nvidia-latest;
+    # Use the NVIDIA driver supplied by the active CachyOS kernel package set.
+    package = config.boot.kernelPackages.nvidiaPackages.latest;
     open = true; # satisfies >=560 assertion and works well on Wayland
     modesetting.enable = true; # sets nvidia-drm.modeset=1 automatically
     nvidiaSettings = true; # optional GUI tool
