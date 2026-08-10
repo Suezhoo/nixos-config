@@ -19,6 +19,10 @@
     GBM_BACKEND = "nvidia-drm";
     WLR_RENDERER = "vulkan";
 
+    # Expose NVDEC through VA-API for Chromium-based browsers.
+    LIBVA_DRIVER_NAME = "nvidia";
+    NVD_BACKEND = "direct";
+
     # Only keep if you see cursor glitches; otherwise you can remove it
     WLR_NO_HARDWARE_CURSORS = "1";
   };
