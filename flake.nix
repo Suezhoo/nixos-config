@@ -22,7 +22,10 @@
 
     # KWin-based tiling compositor/session. Keep its upstream nixpkgs pin:
     # KineticWE currently needs a newer Qt/KF stack than the stable system.
-    kineticwe.url = "gitlab:theblackdon/kineticwe";
+    kineticwe = {
+      url = "gitlab:theblackdon/kineticwe";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
 
     # HM
     home-manager.url = "github:nix-community/home-manager/release-26.05";

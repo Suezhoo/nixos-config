@@ -112,15 +112,17 @@
     "kineticwe": {
       "inputs": {
         "flake-utils": "flake-utils",
-        "nixpkgs": "nixpkgs_2",
+        "nixpkgs": [
+          "nixpkgs-unstable"
+        ],
         "noctalia": "noctalia"
       },
       "locked": {
-        "lastModified": 1786420673,
-        "narHash": "sha256-yBX5B0ByI/ssCIXg/8IkgFbKHT5a5mEN5TWwphsXIoc=",
+        "lastModified": 1786437223,
+        "narHash": "sha256-S+4NKWPD1b1/X+xEHCgKzx6t67bZ2Yea+OBllhdtV+Q=",
         "owner": "theblackdon",
         "repo": "kineticwe",
-        "rev": "a1b74b560c5da887a17379a5fb417af5f321cbcf",
+        "rev": "3362547cd0ec29328c8806d1a85053f69370f12e",
         "type": "gitlab"
       },
       "original": {
@@ -133,7 +135,7 @@
       "inputs": {
         "flake-compat": "flake-compat",
         "flake-parts": "flake-parts",
-        "nixpkgs": "nixpkgs_3"
+        "nixpkgs": "nixpkgs_2"
       },
       "locked": {
         "lastModified": 1785870829,
@@ -199,22 +201,6 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1782723713,
-        "narHash": "sha256-oPXCU/SSUokcGaJREHibG1CBX3+s/W7orDWQOZDsEeQ=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "b5aa0fbd538984f6e3d201be0005b4463d8b09f8",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "nixos-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs_3": {
-      "locked": {
         "lastModified": 1785859399,
         "narHash": "sha256-pY4X50au95QrTpAbEm08pURmeU3/Ud2oa0s2XzpDdz8=",
         "owner": "NixOS",
@@ -229,7 +215,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_4": {
+    "nixpkgs_3": {
       "locked": {
         "lastModified": 1786201459,
         "narHash": "sha256-CiOTEjmwAmG2AWnaIno9YaCJJmpca2FXPhMAsnrolCg=",
@@ -245,7 +231,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_5": {
+    "nixpkgs_4": {
       "locked": {
         "lastModified": 1785571196,
         "narHash": "sha256-xwSqxTsama0YTtS78+4YyCm6jJg09v78QWfP1cAyoVA=",
@@ -281,7 +267,7 @@
     },
     "noctalia_2": {
       "inputs": {
-        "nixpkgs": "nixpkgs_5"
+        "nixpkgs": "nixpkgs_4"
       },
       "locked": {
         "lastModified": 1786013897,
@@ -325,7 +311,7 @@
         "inir": "inir",
         "kineticwe": "kineticwe",
         "nix-cachyos-kernel": "nix-cachyos-kernel",
-        "nixpkgs": "nixpkgs_4",
+        "nixpkgs": "nixpkgs_3",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "noctalia": "noctalia_2",
         "qylock": "qylock"
