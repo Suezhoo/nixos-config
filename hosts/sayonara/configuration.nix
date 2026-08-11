@@ -32,7 +32,6 @@
     # Pass host and pkgs-unstable to HM modules
     extraSpecialArgs = {
       host = config.networking.hostName;
-      desktopShell = "custom";
 
       pkgs-unstable = import inputs.nixpkgs-unstable {
         system = pkgs.stdenv.hostPlatform.system;

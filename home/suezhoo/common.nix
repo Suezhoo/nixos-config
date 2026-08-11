@@ -16,6 +16,9 @@
   ];
 
   imports = [
+    # Shared contract between compositor and shell modules.
+    ../desktop/shell-interface.nix
+
     # Apps
     ../apps/brave.nix
     ../apps/codium.nix

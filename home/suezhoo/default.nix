@@ -1,16 +1,9 @@
 {...}: {
+  # Compatibility entry point used by the `sayonara` VM. Physical-host
+  # desktop stacks are composed explicitly under profiles/desktops instead.
   imports = [
     ./common.nix
-
-    # The personal profile keeps both compositor sessions available.
-    ../wm/niri
-
-    # Keep the existing Hyprland session in the personal profile.
     ../wm/hypr
-
-    # Personal desktop shell.
-    ../shell/waybar
-    ../shell/wofi
-    ../shell/wallpaper
+    ../shell/custom
   ];
 }

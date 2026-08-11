@@ -35,16 +35,10 @@
     home-manager,
     ...
   }: let
-    mkSayo = {
-      homeProfile,
-      desktopShell,
-      desktopSession ? "niri",
-    }:
+    mkSayo = desktopProfile:
       nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs = {
-          inherit inputs homeProfile desktopShell desktopSession;
-        };
+        specialArgs = {inherit inputs;};
         modules = [
           # cachyos kernel
           (
@@ -58,33 +52,19 @@
           # other configs
           ./hosts/sayo/configuration.nix
           home-manager.nixosModules.home-manager
+          desktopProfile
         ];
       };
   in {
     nixosConfigurations = {
-      # Desktop profiles. `sayo` remains an alias for the personal rice so
-      # existing rebuild commands continue to work.
-      sayo = mkSayo {
-        homeProfile = ./home/suezhoo/noctalia.nix;
-        desktopShell = "noctalia";
-      };
-      sayo-custom = mkSayo {
-        homeProfile = ./home/suezhoo;
-        desktopShell = "custom";
-      };
-      sayo-noctalia = mkSayo {
-        homeProfile = ./home/suezhoo/noctalia.nix;
-        desktopShell = "noctalia";
-      };
-      sayo-inir = mkSayo {
-        homeProfile = ./home/suezhoo/inir.nix;
-        desktopShell = "inir";
-      };
-      sayo-kineticwe = mkSayo {
-        homeProfile = ./home/suezhoo/kineticwe.nix;
-        desktopShell = "kineticwe";
-        desktopSession = "kineticwe";
-      };
+      # Desktop stacks are explicit, known-good compositor/shell pairings.
+      # `sayo` remains an alias for Niri + Noctalia so existing commands work.
+      sayo = mkSayo ./profiles/desktops/niri-noctalia.nix;
+      sayo-custom = mkSayo ./profiles/desktops/niri-custom.nix;
+      sayo-noctalia = mkSayo ./profiles/desktops/niri-noctalia.nix;
+      sayo-inir = mkSayo ./profiles/desktops/niri-inir.nix;
+      sayo-kineticwe = mkSayo ./profiles/desktops/kineticwe.nix;
+      sayo-hyprland = mkSayo ./profiles/desktops/hyprland-custom.nix;
       # VM
       sayonara = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";

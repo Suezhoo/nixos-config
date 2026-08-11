@@ -1,5 +1,5 @@
 {
-  desktopShell,
+  config,
   host,
   pkgs,
   ...
@@ -281,11 +281,7 @@
     // Noctalia and the custom Waybar are Home Manager services, allowing a
     // profile switch to stop the old shell and start the selected one. iNiR
     // does not currently expose an equivalent Home Manager service.
-    ${
-      if desktopShell == "inir"
-      then ''spawn-at-startup "inir" "run" "--session"''
-      else ""
-    }
+    ${config.local.desktopShell.niri.startup}
 
     // To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
     // spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"
@@ -380,20 +376,8 @@
 
         // Suggested binds for running programs: terminal, app launcher, screen locker.
         Mod+T hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
-        ${
-      if desktopShell == "noctalia"
-      then ''Mod+D hotkey-overlay-title="Open Noctalia Launcher" { spawn "noctalia" "msg" "panel-toggle" "launcher"; }''
-      else if desktopShell == "inir"
-      then ''Mod+D hotkey-overlay-title="Open iNiR Search" { spawn "inir" "ipc" "overlay" "toggle"; }''
-      else ''Mod+D hotkey-overlay-title="Run an Application: wofi" { spawn "wofi" "--show" "drun"; }''
-    }
-        ${
-      if desktopShell == "noctalia"
-      then ''Super+Alt+L hotkey-overlay-title="Lock with Noctalia" { spawn "noctalia" "msg" "session" "lock"; }''
-      else if desktopShell == "inir"
-      then ''Super+Alt+L hotkey-overlay-title="Lock with iNiR" { spawn "inir" "ipc" "lock" "activate"; }''
-      else ''Super+Alt+L hotkey-overlay-title="Lock the Screen: qylock" { spawn "qylock-lock"; }''
-    }
+        ${config.local.desktopShell.niri.launcherBinding}
+        ${config.local.desktopShell.niri.lockBinding}
 
         // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
         // Note: the entire command goes as a single argument. It's passed verbatim to `sh -c`.
