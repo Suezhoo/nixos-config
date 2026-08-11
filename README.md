@@ -17,7 +17,7 @@ The flake exposes these physical-machine configurations:
 
 | Output | Desktop stack |
 | --- | --- |
-| `moonine` | Niri + Noctalia |
+| `moonine` | Alias for KineticWE |
 | `moonine-noctalia` | Niri + Noctalia |
 | `moonine-custom` | Niri + Waybar, Wofi, and Waypaper |
 | `moonine-inir` | Niri + iNiR |

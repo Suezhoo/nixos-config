@@ -49,8 +49,8 @@
   in {
     nixosConfigurations = {
       # Desktop stacks are explicit, known-good compositor/shell pairings.
-      # `moonine` is the default Niri + Noctalia configuration.
-      moonine = mkMoonine ./profiles/desktops/niri-noctalia.nix;
+      # `moonine` is an alias for the default KineticWE configuration.
+      moonine = mkMoonine ./profiles/desktops/kineticwe.nix;
       moonine-custom = mkMoonine ./profiles/desktops/niri-custom.nix;
       moonine-noctalia = mkMoonine ./profiles/desktops/niri-noctalia.nix;
       moonine-inir = mkMoonine ./profiles/desktops/niri-inir.nix;
