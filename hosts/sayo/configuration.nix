@@ -5,14 +5,20 @@
   inputs,
   homeProfile,
   desktopShell,
+  desktopSession,
   ...
 }: {
   imports =
     [
       ./hardware-configuration.nix
       ../../modules/common.nix
-      ../../modules/niri.nix
       ../../modules/gpu/nvidia.nix
+    ]
+    ++ lib.optionals (desktopSession == "niri") [
+      ../../modules/niri.nix
+    ]
+    ++ lib.optionals (desktopSession == "kineticwe") [
+      ../../modules/kineticwe.nix
     ]
     ++ lib.optionals (desktopShell == "custom") [
       ../../modules/hyprland.nix
@@ -45,7 +51,7 @@
     # Pass host and pkgs-unstable to HM modules
     extraSpecialArgs = {
       host = config.networking.hostName;
-      inherit inputs desktopShell;
+      inherit inputs desktopShell desktopSession;
 
       pkgs-unstable = import inputs.nixpkgs-unstable {
         system = pkgs.stdenv.hostPlatform.system;
@@ -61,7 +67,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.grub.enable = false;
 
-  # SDDM login screen for Niri.
+  # SDDM login screen for the selected Wayland session.
   services.xserver.enable = true;
   services.displayManager.sddm.enable = true;
 

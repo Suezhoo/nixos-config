@@ -27,9 +27,6 @@
     # Dev things
     ../dev/nix-tools.nix
 
-    # Niri is shared by every desktop-shell profile.
-    ../wm/niri
-
     # Nvidia
     ../desktop/nvidia-session.nix
 

@@ -20,6 +20,10 @@
     noctalia.url = "github:noctalia-dev/noctalia/cachix";
     inir.url = "github:snowarch/iNiR";
 
+    # KWin-based tiling compositor/session. Keep its upstream nixpkgs pin:
+    # KineticWE currently needs a newer Qt/KF stack than the stable system.
+    kineticwe.url = "gitlab:theblackdon/kineticwe";
+
     # HM
     home-manager.url = "github:nix-community/home-manager/release-26.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
@@ -34,11 +38,12 @@
     mkSayo = {
       homeProfile,
       desktopShell,
+      desktopSession ? "niri",
     }:
       nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = {
-          inherit inputs homeProfile desktopShell;
+          inherit inputs homeProfile desktopShell desktopSession;
         };
         modules = [
           # cachyos kernel
@@ -74,6 +79,11 @@
       sayo-inir = mkSayo {
         homeProfile = ./home/suezhoo/inir.nix;
         desktopShell = "inir";
+      };
+      sayo-kineticwe = mkSayo {
+        homeProfile = ./home/suezhoo/kineticwe.nix;
+        desktopShell = "kineticwe";
+        desktopSession = "kineticwe";
       };
       # VM
       sayonara = nixpkgs.lib.nixosSystem {

@@ -1,6 +1,7 @@
 {inputs, ...}: {
   imports = [
     ./common.nix
+    ../wm/niri
     inputs.inir.homeModules.default
   ];
 
