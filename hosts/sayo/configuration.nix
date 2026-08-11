@@ -23,7 +23,7 @@
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
-    users.suezhoo.imports = [../../home/suezhoo/common.nix];
+    users.suezhoo.imports = [../../home/users/suezhoo];
     # Keep older .hm-backup files intact when Home Manager first takes over
     # additional desktop configuration files.
     backupFileExtension = "hm-backup-20260805";
