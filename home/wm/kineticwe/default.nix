@@ -7,9 +7,49 @@
   # registration remains the responsibility of modules/sessions/kineticwe.nix.
   imports = [inputs.kineticwe.homeModules.default];
 
+  # KineticWE supplies the compositor, but unlike a full Plasma installation it
+  # does not pull in the KCM plugins that populate System Settings. Keep the
+  # control-center pieces explicit so we get the settings UI without enabling
+  # Plasma's desktop session or installing its stock KWin.
   home.packages = with pkgs; [
+    kdePackages.bluedevil
+    kdePackages.kde-cli-tools
+    kdePackages.kde-gtk-config
+    kdePackages.kinfocenter
+    kdePackages.kscreen
+    kdePackages.plasma-desktop
+    kdePackages.plasma-nm
+    kdePackages.plasma-pa
+    kdePackages.plasma-workspace
+    kdePackages.powerdevil
     kdePackages.systemsettings
   ];
+
+  # KWin persists output state in kwinoutputconfig.json. Apply the host's known
+  # layout after KineticWE is ready instead of depending on stale state from a
+  # previous compositor session.
+  systemd.user.services.kineticwe-monitor-layout = {
+    Unit = {
+      Description = "Apply the moonine KineticWE monitor layout";
+      After = ["graphical-session.target"];
+      PartOf = ["graphical-session.target"];
+    };
+
+    Service = {
+      Type = "oneshot";
+      ExecStartPre = "${pkgs.coreutils}/bin/sleep 3";
+      ExecStart = let
+        kscreenDoctor = "${pkgs.kdePackages.kscreen}/bin/kscreen-doctor";
+      in ''
+        ${kscreenDoctor} \
+          output.DP-4.scale.1 output.DP-4.position.0,180 \
+          output.DP-3.scale.1 output.DP-3.position.1920,0 \
+          output.DP-2.scale.1 output.DP-2.position.4480,180
+      '';
+    };
+
+    Install.WantedBy = ["graphical-session.target"];
+  };
 
   programs.kineticwe = {
     enable = true;

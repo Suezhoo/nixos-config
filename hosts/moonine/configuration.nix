@@ -51,9 +51,9 @@
   # layout. Keep this aligned with the compositor-specific monitor settings.
   services.xserver.displayManager.setupCommands = ''
     ${pkgs.xrandr}/bin/xrandr \
-      --output DP-2 --mode 1920x1080 --pos 0x180 \
+      --output DP-4 --mode 1920x1080 --pos 0x180 \
       --output DP-3 --primary --mode 2560x1440 --pos 1920x0 \
-      --output DP-4 --mode 1920x1080 --pos 4480x180
+      --output DP-2 --mode 1920x1080 --pos 4480x180
   '';
 
   # Pin to installed NixOS release; dont bump casually.
