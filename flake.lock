@@ -116,11 +116,11 @@
         "noctalia": "noctalia"
       },
       "locked": {
-        "lastModified": 1786409981,
-        "narHash": "sha256-lWywcx1T7mNkJP4DbpaCZCLHgJvZa2uFknDa5haHW/A=",
+        "lastModified": 1786420673,
+        "narHash": "sha256-yBX5B0ByI/ssCIXg/8IkgFbKHT5a5mEN5TWwphsXIoc=",
         "owner": "theblackdon",
         "repo": "kineticwe",
-        "rev": "47d355246e288cf06a57942cf8763cb7b3e4e577",
+        "rev": "a1b74b560c5da887a17379a5fb417af5f321cbcf",
         "type": "gitlab"
       },
       "original": {
