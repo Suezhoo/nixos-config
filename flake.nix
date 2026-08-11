@@ -35,13 +35,13 @@
     home-manager,
     ...
   }: let
-    mkSayo = desktopProfile:
+    mkMoonine = desktopProfile:
       nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = {inherit inputs;};
         modules = [
           ./modules/kernel/cachyos.nix
-          ./hosts/sayo/configuration.nix
+          ./hosts/moonine/configuration.nix
           home-manager.nixosModules.home-manager
           desktopProfile
         ];
@@ -49,26 +49,13 @@
   in {
     nixosConfigurations = {
       # Desktop stacks are explicit, known-good compositor/shell pairings.
-      # `sayo` remains an alias for Niri + Noctalia so existing commands work.
-      sayo = mkSayo ./profiles/desktops/niri-noctalia.nix;
-      sayo-custom = mkSayo ./profiles/desktops/niri-custom.nix;
-      sayo-noctalia = mkSayo ./profiles/desktops/niri-noctalia.nix;
-      sayo-inir = mkSayo ./profiles/desktops/niri-inir.nix;
-      sayo-kineticwe = mkSayo ./profiles/desktops/kineticwe.nix;
-      sayo-hyprland = mkSayo ./profiles/desktops/hyprland-custom.nix;
-      # VM
-      sayonara = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        # Make flake inputs available inside hosts/{hostname}/configuration.nix
-        specialArgs = {inherit inputs;};
-
-        modules = [
-          ./hosts/sayonara/configuration.nix
-
-          # HM
-          home-manager.nixosModules.home-manager
-        ];
-      };
+      # `moonine` is the default Niri + Noctalia configuration.
+      moonine = mkMoonine ./profiles/desktops/niri-noctalia.nix;
+      moonine-custom = mkMoonine ./profiles/desktops/niri-custom.nix;
+      moonine-noctalia = mkMoonine ./profiles/desktops/niri-noctalia.nix;
+      moonine-inir = mkMoonine ./profiles/desktops/niri-inir.nix;
+      moonine-kineticwe = mkMoonine ./profiles/desktops/kineticwe.nix;
+      moonine-hyprland = mkMoonine ./profiles/desktops/hyprland-custom.nix;
     };
   };
 }

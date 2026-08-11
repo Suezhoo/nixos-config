@@ -1,7 +1,7 @@
 # Suezhoo's NixOS configuration
 
-Declarative NixOS and Home Manager configuration for the `sayo` desktop and
-the `sayonara` VM. The physical desktop runs the CachyOS kernel and supports
+Declarative NixOS and Home Manager configuration for the `moonine` desktop.
+The machine runs the CachyOS kernel and supports
 several independently buildable Wayland desktop stacks, including Niri and
 KineticWE.
 
@@ -17,24 +17,23 @@ The flake exposes these physical-machine configurations:
 
 | Output | Desktop stack |
 | --- | --- |
-| `sayo` | Alias for Niri + Noctalia |
-| `sayo-noctalia` | Niri + Noctalia |
-| `sayo-custom` | Niri + Waybar, Wofi, and Waypaper |
-| `sayo-inir` | Niri + iNiR |
-| `sayo-kineticwe` | KineticWE with its upstream Noctalia integration |
-| `sayo-hyprland` | Hyprland + the custom shell |
-| `sayonara` | Virtual-machine configuration |
+| `moonine` | Niri + Noctalia |
+| `moonine-noctalia` | Niri + Noctalia |
+| `moonine-custom` | Niri + Waybar, Wofi, and Waypaper |
+| `moonine-inir` | Niri + iNiR |
+| `moonine-kineticwe` | KineticWE with its upstream Noctalia integration |
+| `moonine-hyprland` | Hyprland + the custom shell |
 
 Build a configuration without activating it:
 
 ```bash
-sudo nixos-rebuild build --flake .#sayo-kineticwe
+sudo nixos-rebuild build --flake .#moonine-kineticwe
 ```
 
 Build and activate it:
 
 ```bash
-sudo nixos-rebuild switch --flake .#sayo-kineticwe
+sudo nixos-rebuild switch --flake .#moonine-kineticwe
 ```
 
 Validate every flake output without building the complete systems:
@@ -70,13 +69,10 @@ display layout, GPU integration, and which user accounts exist.
 
 ```text
 hosts/
-├── sayo/
-│   ├── configuration.nix
-│   ├── hardware-configuration.nix
-│   └── home.nix              Home Manager settings tied to sayo's hardware
-└── sayonara/
+└── moonine/
     ├── configuration.nix
-    └── hardware-configuration.nix
+    ├── hardware-configuration.nix
+    └── home.nix              Home Manager settings tied to its hardware
 ```
 
 Generated `hardware-configuration.nix` files should generally remain
