@@ -8,22 +8,18 @@
     ./hardware-configuration.nix
     ../../modules/common.nix
     ../../modules/gpu/nvidia.nix
+    ../../modules/users/suezhoo.nix
   ];
 
   networking.hostName = "sayo";
 
-  # define the user
-  users.groups.Suezhoo = {};
-  users.users.suezhoo = {
-    isNormalUser = true;
-    group = "Suezhoo";
-    extraGroups = ["wheel" "networkmanager" "video" "audio" "input"];
-  };
-
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
-    users.suezhoo.imports = [../../home/users/suezhoo];
+    users.suezhoo.imports = [
+      ../../home/users/suezhoo
+      ./home.nix
+    ];
     # Keep older .hm-backup files intact when Home Manager first takes over
     # additional desktop configuration files.
     backupFileExtension = "hm-backup-20260805";
@@ -51,8 +47,8 @@
   services.xserver.enable = true;
   services.displayManager.sddm.enable = true;
 
-  # SDDM starts before the user's Niri session, so it needs its own monitor
-  # layout. Keep this in sync with home/wm/niri/niri.nix.
+  # SDDM starts before the user's desktop session and needs its own monitor
+  # layout. Keep this aligned with the compositor-specific monitor settings.
   services.xserver.displayManager.setupCommands = ''
     ${pkgs.xrandr}/bin/xrandr \
       --output DP-2 --mode 1920x1080 --pos 0x180 \

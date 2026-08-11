@@ -1,6 +1,5 @@
 {pkgs, ...}: {
   imports = [
-    ../desktop/nvidia-session.nix
     ../desktop/cursor.nix
   ];
 
@@ -23,12 +22,4 @@
     gtk-theme = "Adwaita-dark";
   };
 
-  xdg.mimeApps = {
-    enable = true;
-    defaultApplications = {
-      "inode/directory" = ["org.kde.dolphin.desktop"];
-      "text/plain" = ["dev.zed.Zed.desktop"];
-      "application/x-zerosize" = ["dev.zed.Zed.desktop"];
-    };
-  };
 }

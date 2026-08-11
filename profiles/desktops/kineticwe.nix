@@ -1,5 +1,5 @@
 {...}: {
-  imports = [../../modules/kineticwe.nix];
+  imports = [../../modules/sessions/kineticwe.nix];
 
   # KineticWE's upstream session currently bundles Noctalia, so keep this
   # desktop stack atomic until upstream exposes a compositor-only session.

@@ -1,6 +1,6 @@
 {...}: {
   imports = [
-    ../../modules/hyprland.nix
+    ../../modules/sessions/hyprland.nix
     ../../modules/qylock.nix
   ];
 

@@ -7,19 +7,12 @@
   imports = [
     ./hardware-configuration.nix
     ../../modules/common.nix
-    ../../modules/hyprland.nix
+    ../../modules/sessions/hyprland.nix
     ../../modules/qylock.nix
+    ../../modules/users/suezhoo.nix
   ];
 
   networking.hostName = "sayonara";
-
-  # define the user
-  users.groups.Suezhoo = {};
-  users.users.suezhoo = {
-    isNormalUser = true;
-    group = "Suezhoo";
-    extraGroups = ["wheel" "networkmanager" "video" "audio" "input"];
-  };
 
   home-manager = {
     useGlobalPkgs = true;
@@ -55,9 +48,6 @@
   # SDDM login screen for the Wayland sessions.
   services.xserver.enable = true;
   services.displayManager.sddm.enable = true;
-
-  # Niri
-  services.displayManager.sessionPackages = [pkgs.niri];
 
   # Pin to installed NixOS release; dont bump casually.
   system.stateVersion = "25.05";

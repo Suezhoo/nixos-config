@@ -1,6 +1,6 @@
 {...}: {
   imports = [
-    ../../modules/niri.nix
+    ../../modules/sessions/niri.nix
     ../../modules/qylock.nix
   ];
 

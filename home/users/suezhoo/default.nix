@@ -26,6 +26,17 @@
     pkgs-unstable.codex
   ];
 
+  # These associations are personal because another user may choose different
+  # applications or may not install Zed at all.
+  xdg.mimeApps = {
+    enable = true;
+    defaultApplications = {
+      "inode/directory" = ["org.kde.dolphin.desktop"];
+      "text/plain" = ["dev.zed.Zed.desktop"];
+      "application/x-zerosize" = ["dev.zed.Zed.desktop"];
+    };
+  };
+
   programs.git = {
     enable = true;
     settings = {

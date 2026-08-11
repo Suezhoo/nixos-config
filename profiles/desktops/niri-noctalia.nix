@@ -1,5 +1,5 @@
 {...}: {
-  imports = [../../modules/niri.nix];
+  imports = [../../modules/sessions/niri.nix];
 
   hardware.bluetooth.enable = true;
   services.upower.enable = true;

@@ -40,16 +40,7 @@
         system = "x86_64-linux";
         specialArgs = {inherit inputs;};
         modules = [
-          # cachyos kernel
-          (
-            {pkgs, ...}: {
-              nixpkgs.overlays = [inputs.nix-cachyos-kernel.overlays.pinned];
-
-              boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest;
-            }
-          )
-
-          # other configs
+          ./modules/kernel/cachyos.nix
           ./hosts/sayo/configuration.nix
           home-manager.nixosModules.home-manager
           desktopProfile
