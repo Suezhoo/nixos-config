@@ -17,11 +17,11 @@ The flake exposes these physical-machine configurations:
 
 | Output | Desktop stack |
 | --- | --- |
-| `moonine` | Alias for KineticWE |
+| `moonine` | Alias for Plasma + KineticWE + Noctalia |
 | `moonine-noctalia` | Niri + Noctalia |
 | `moonine-custom` | Niri + Waybar, Wofi, and Waypaper |
 | `moonine-inir` | Niri + iNiR |
-| `moonine-kineticwe` | KineticWE with its upstream Noctalia integration |
+| `moonine-kineticwe` | Plasma plus a KineticWE session with upstream Noctalia integration |
 | `moonine-hyprland` | Hyprland + the custom shell |
 
 Build a configuration without activating it:

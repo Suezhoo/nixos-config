@@ -30,35 +30,43 @@
     # HM
     home-manager.url = "github:nix-community/home-manager/release-26.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    home-manager-unstable.url = "github:nix-community/home-manager";
+    home-manager-unstable.inputs.nixpkgs.follows = "nixpkgs-unstable";
   };
 
   outputs = inputs @ {
     self,
     nixpkgs,
+    nixpkgs-unstable,
     home-manager,
+    home-manager-unstable,
     ...
   }: let
-    mkMoonine = desktopProfile:
-      nixpkgs.lib.nixosSystem {
+    mkMoonine = nixpkgsInput: homeManagerInput: desktopProfile:
+      nixpkgsInput.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = {inherit inputs;};
         modules = [
           ./modules/kernel/cachyos.nix
           ./hosts/moonine/configuration.nix
-          home-manager.nixosModules.home-manager
+          homeManagerInput.nixosModules.home-manager
           desktopProfile
         ];
       };
   in {
     nixosConfigurations = {
       # Desktop stacks are explicit, known-good compositor/shell pairings.
-      # `moonine` is an alias for the default KineticWE configuration.
-      moonine = mkMoonine ./profiles/desktops/kineticwe.nix;
-      moonine-custom = mkMoonine ./profiles/desktops/niri-custom.nix;
-      moonine-noctalia = mkMoonine ./profiles/desktops/niri-noctalia.nix;
-      moonine-inir = mkMoonine ./profiles/desktops/niri-inir.nix;
-      moonine-kineticwe = mkMoonine ./profiles/desktops/kineticwe.nix;
-      moonine-hyprland = mkMoonine ./profiles/desktops/hyprland-custom.nix;
+      # `moonine` is an alias for the default KDE + KineticWE configuration.
+      # KineticWE tracks the newer KDE/Qt stack from nixpkgs-unstable. Build
+      # the complete Plasma environment from that same revision so KWin, its
+      # KCMs, portals, and libkscreen all speak matching protocols.
+      moonine = mkMoonine nixpkgs-unstable home-manager-unstable ./profiles/desktops/kineticwe.nix;
+      moonine-kineticwe = mkMoonine nixpkgs-unstable home-manager-unstable ./profiles/desktops/kineticwe.nix;
+
+      moonine-custom = mkMoonine nixpkgs home-manager ./profiles/desktops/niri-custom.nix;
+      moonine-noctalia = mkMoonine nixpkgs home-manager ./profiles/desktops/niri-noctalia.nix;
+      moonine-inir = mkMoonine nixpkgs home-manager ./profiles/desktops/niri-inir.nix;
+      moonine-hyprland = mkMoonine nixpkgs home-manager ./profiles/desktops/hyprland-custom.nix;
     };
   };
 }

@@ -30,12 +30,20 @@
   # applications or may not install Zed at all.
   xdg.mimeApps = {
     enable = true;
+    associations.added = {
+      "x-scheme-handler/discord" = ["vesktop.desktop"];
+    };
     defaultApplications = {
       "inode/directory" = ["org.kde.dolphin.desktop"];
       "text/plain" = ["dev.zed.Zed.desktop"];
       "application/x-zerosize" = ["dev.zed.Zed.desktop"];
+      "x-scheme-handler/discord" = ["vesktop.desktop"];
     };
   };
+
+  # Applications may rewrite this file at runtime. Keep the declarative MIME
+  # associations authoritative instead of repeatedly creating backup conflicts.
+  xdg.configFile."mimeapps.list".force = true;
 
   programs.git = {
     enable = true;
