@@ -15,7 +15,6 @@
     ../../apps/vesktop.nix
     ../../apps/obs.nix
     ../../apps/zed.nix
-    ../../apps/stremio.nix
 
     ../../dev/nix-tools.nix
   ];
@@ -23,6 +22,8 @@
   home.packages = with pkgs; [
     steam
     obsidian
+
+    # unstable
     pkgs-unstable.spotify
     pkgs-unstable.codex
   ];
