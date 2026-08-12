@@ -20,9 +20,21 @@
       ../../home/users/suezhoo
       ./home.nix
     ];
-    # Keep older .hm-backup files intact when Home Manager first takes over
-    # additional desktop configuration files.
-    backupFileExtension = "hm-backup-20260805";
+    # Preserve files that Home Manager takes over without relying on a fixed
+    # suffix that can collide on a later activation.
+    backupCommand = pkgs.writeShellScript "home-manager-backup" ''
+      target="$1"
+      timestamp="$(${pkgs.coreutils}/bin/date +%Y%m%d-%H%M%S)"
+      backup="$target.hm-backup-$timestamp"
+      counter=1
+
+      while [[ -e "$backup" ]]; do
+        backup="$target.hm-backup-$timestamp-$counter"
+        counter=$((counter + 1))
+      done
+
+      ${pkgs.coreutils}/bin/mv -- "$target" "$backup"
+    '';
 
     # Pass host and pkgs-unstable to HM modules
     extraSpecialArgs = {

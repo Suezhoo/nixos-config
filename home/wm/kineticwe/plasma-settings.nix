@@ -1,4 +1,8 @@
-{inputs, ...}: {
+{
+  inputs,
+  pkgs,
+  ...
+}: {
   imports = [inputs.plasma-manager.homeModules.plasma-manager];
 
   programs.plasma = {
@@ -11,6 +15,14 @@
     shortcuts.kwin = {
       # Windows-style show-desktop toggle (called "Peek at Desktop" by KWin).
       "Show Desktop" = "Meta+D";
+    };
+
+    hotkeys.commands = {
+      "open-kitty" = {
+        name = "Open Kitty";
+        key = "Meta+T";
+        command = "${pkgs.kitty}/bin/kitty";
+      };
     };
   };
 }

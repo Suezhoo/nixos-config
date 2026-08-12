@@ -15,6 +15,7 @@
     ../../apps/vesktop.nix
     ../../apps/obs.nix
     ../../apps/zed.nix
+    ../../apps/stremio.nix
 
     ../../dev/nix-tools.nix
   ];
