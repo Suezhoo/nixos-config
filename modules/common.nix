@@ -1,7 +1,4 @@
-{
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   imports = [./fonts.nix];
 
   # Enable modern CLI + flakes permanently
@@ -118,6 +115,7 @@
     fastfetch
     kdePackages.dolphin # file explorer
     vlc # video player
+    htop # ram display
 
     piper # mice gui
     pavucontrol # audio

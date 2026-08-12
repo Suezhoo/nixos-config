@@ -5,7 +5,10 @@
 }: {
   # The HM module exposes the session launcher in the user environment. SDDM
   # registration remains the responsibility of modules/sessions/kineticwe.nix.
-  imports = [inputs.kineticwe.homeModules.default];
+  imports = [
+    inputs.kineticwe.homeModules.default
+    ./plasma-settings.nix
+  ];
 
   # Plasma is installed by the system profile, including System Settings and
   # its KCM plugins. KineticWE adds its own KWin-specific KCMs to that base.
