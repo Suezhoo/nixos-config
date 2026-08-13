@@ -104,15 +104,12 @@
   environment.systemPackages = with pkgs; [
     git
     gh
-    vim
-    neovim
     wget
     curl
+    cmatrix
     firefox
     kitty
     kitty-themes
-    foot
-    fastfetch
     kdePackages.dolphin # file explorer
     vlc # video player
     htop # ram display

@@ -13,6 +13,25 @@
     overrideConfig = false;
     configFile."kwalletrc"."Wallet"."Enabled" = true;
 
+    # Match the complete application class detected by System Settings so the
+    # opacity rule applies to every native Zed window.
+    window-rules = [
+      {
+        description = "Zed opacity";
+        match.window-class = ".zed-editor-wrapped dev.zed.Zed";
+        apply = {
+          opacityactive = {
+            value = 90;
+            apply = "force";
+          };
+          opacityinactive = {
+            value = 90;
+            apply = "force";
+          };
+        };
+      }
+    ];
+
     shortcuts.kwin = {
       # Windows-style show-desktop toggle (called "Peek at Desktop" by KWin).
       "Show Desktop" = "Meta+D";

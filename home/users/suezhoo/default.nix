@@ -12,6 +12,8 @@
 
     ../../apps/brave.nix
     ../../apps/codium.nix
+    ../../apps/fastfetch.nix
+    ../../apps/fish.nix
     ../../apps/kitty.nix
     ../../apps/vesktop.nix
     ../../apps/obs.nix

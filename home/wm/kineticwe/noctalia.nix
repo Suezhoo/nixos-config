@@ -12,10 +12,9 @@ in {
 
       # [bar.default]
       bar.default = {
-        center = ["clock"];
+        center = ["clock" "weather"];
         end = [
           "tray"
-          "notifications"
           "clipboard"
           "network"
           "bluetooth"
@@ -28,6 +27,7 @@ in {
         ];
         start = [
           "launcher"
+          "notifications"
           "wallpaper"
           "workspaces"
           "spacer_2"
@@ -40,8 +40,8 @@ in {
       # [widget]
       widget = {
         clock = {
-          format = "{:%H:%M -  %A - %d/%m/%y}";
-          tooltip_format = "{:%H:%M:%S - %A - %d %B %Y}";
+          format = "{:%H:%M  ·  %a %d %b  ·}";
+          tooltip_format = "{:%A · %d %B %Y · %H:%M:%S}";
         };
 
         input_volume = {
@@ -99,6 +99,21 @@ in {
             path = "${defaultWallpaper}";
           };
         };
+      };
+
+      # [location]
+      location = {
+        auto_locate = false;
+        address = "Geraardsbergen, Belgium";
+      };
+
+      # [weather]
+      weather = {
+        enabled = true;
+        refresh_minutes = 30;
+        unit = "metric";
+        show_condition = false;
+        show_temperature = true;
       };
     };
   };
