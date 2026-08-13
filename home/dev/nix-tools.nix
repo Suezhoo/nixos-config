@@ -1,7 +1,7 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
-    nil # Nix language server
-    alejandra # or: alejandra
+    nixd # Nix language server with NixOS/Home Manager option completion
+    alejandra # Nix formatter
     ripgrep
     fd
     unzip

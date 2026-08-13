@@ -49,7 +49,7 @@ in {
     # even when it is launched from the desktop rather than a terminal.
     extraPackages = with pkgs; [
       alejandra
-      nil
+      nixd
       prettier
       eslint
     ];
@@ -96,7 +96,12 @@ in {
           prettierLanguages)
         // {
           Nix = {
-            language_servers = ["nil"];
+            # The Nix extension enables nil by default. Prefer nixd and
+            # explicitly disable nil instead of merely changing server order.
+            language_servers = [
+              "nixd"
+              "!nil"
+            ];
             formatter.external = {
               command = "alejandra";
               arguments = [];
@@ -104,7 +109,23 @@ in {
           };
         };
 
-      lsp.nil.settings.nil.formatting.command = ["alejandra"];
+      lsp.nixd.settings.nixd = {
+        formatting.command = ["alejandra"];
+
+        # Evaluate the active flake so completion includes options from NixOS,
+        # Home Manager, and imported modules such as Noctalia.
+        nixpkgs.expr = ''
+          import (builtins.getFlake "/home/suezhoo/nixos-config").inputs.nixpkgs-unstable { }
+        '';
+        options = {
+          nixos.expr = ''
+            (builtins.getFlake "/home/suezhoo/nixos-config").nixosConfigurations.moonine.options
+          '';
+          home-manager.expr = ''
+            (builtins.getFlake "/home/suezhoo/nixos-config").nixosConfigurations.moonine.options.home-manager.users.type.getSubOptions [ ]
+          '';
+        };
+      };
     };
   };
 }

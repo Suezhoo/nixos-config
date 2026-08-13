@@ -36,10 +36,16 @@
       ${pkgs.coreutils}/bin/mv -- "$target" "$backup"
     '';
 
-    # Pass host and pkgs-unstable to HM modules
+    # Pass the host and explicit stable/unstable package sets to HM modules.
+    # `pkgs` itself follows the package set selected by the desktop profile.
     extraSpecialArgs = {
       host = config.networking.hostName;
       inherit inputs;
+
+      pkgs-stable = import inputs.nixpkgs {
+        system = pkgs.stdenv.hostPlatform.system;
+        config.allowUnfree = true;
+      };
 
       pkgs-unstable = import inputs.nixpkgs-unstable {
         system = pkgs.stdenv.hostPlatform.system;

@@ -1,10 +1,20 @@
-{...}: {
+{pkgs, ...}: {
   imports = [../../modules/sessions/kineticwe.nix];
 
   # Install the complete KDE Plasma desktop as the base environment. KineticWE
   # remains a separate SDDM session because it replaces KWin rather than acting
   # as a plugin that can be loaded by startplasma.
   services.desktopManager.plasma6.enable = true;
+
+  environment.plasma6.excludePackages = with pkgs.kdePackages; [
+    elisa
+    gwenview
+    okular
+    konsole
+    plasma-browser-integration
+    khelpcenter
+    kate
+  ];
 
   # The upstream KineticWE launcher starts this target once KWin has exported
   # WAYLAND_DISPLAY.  Provide the target it expects so the standard graphical

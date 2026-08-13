@@ -1,5 +1,6 @@
 {
   pkgs,
+  pkgs-stable,
   pkgs-unstable,
   ...
 }: {
@@ -22,9 +23,10 @@
   home.packages = with pkgs; [
     steam
     obsidian
+    gamescope # game compositor to make games run and render same way across all types of linux2
+    pkgs-stable.spotify
 
     # unstable
-    pkgs-unstable.spotify
     pkgs-unstable.codex
   ];
 
