@@ -57,7 +57,19 @@
         {
           type = "memory";
           key = "├ Memory";
-          format = "{used} / {total} ({percentage}%) · Corsair CMH32GX5M2X7200C34 · DDR5-4800";
+          format = "{used} / {total} ({percentage}%)";
+        }
+
+        {
+          type = "command";
+          key = "│  ├ DIMM 1";
+          text = "printf '16 GiB DDR5@4800 MT/s · Corsair CMH32GX5M2X7200C34'";
+        }
+
+        {
+          type = "command";
+          key = "│  └ DIMM 2";
+          text = "printf '16 GiB DDR5@4800 MT/s · Corsair CMH32GX5M2X7200C34'";
         }
 
         {
@@ -83,9 +95,11 @@
           key = "├ DE";
         }
 
+        "break"
+
         {
           type = "terminal";
-          key = "├ Terminal";
+          key = "Terminal";
         }
 
         {

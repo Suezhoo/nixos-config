@@ -16,6 +16,15 @@
     # Never reopen applications that were running when the previous Plasma
     # session ended.
     configFile."ksmserverrc"."General"."loginMode" = "emptySession";
+    # Give normal windows subtle rounded corners and make focus visible without
+    # an oversized frame. KineticWE keeps maximized/fullscreen windows square.
+    configFile."kwinrc"."Tiling" = {
+      "TilingBorderMode" = "AllWindows";
+      "TilingBorderThickness" = 2;
+      "TilingBorderColorSourceActive" = "NoctaliaPrimary";
+      "TilingBorderColorSourceInactive" = "SystemAccentFaded";
+      "TilingCornerRadius" = 8;
+    };
     # Noctalia regenerates this color scheme whenever the wallpaper changes;
     # KDE applications such as Dolphin follow this stable scheme name.
     configFile."kdeglobals"."General"."ColorScheme" = "noctalia";
