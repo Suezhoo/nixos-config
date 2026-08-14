@@ -11,6 +11,7 @@
 
     ./noctalia.nix
     ./plasma-settings.nix
+    ./zed-theme.nix
   ];
 
   # Plasma is installed by the system profile, including System Settings and
