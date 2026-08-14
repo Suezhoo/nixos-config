@@ -1,10 +1,7 @@
-@define-color background #1E1E2E; /* purple-ish black */
-@define-color background-transparent alpha(@background, 0.90);
-
-@define-color foreground #f1fffa; /* mint cream */
-@define-color dusty-mauve #A288A6; /* dusty mauve */
-@define-color lilac-ash #BB9BB0; /* lilac ash */
-@define-color teal #488286; /* teal */
+/*
+ * Template source. waybar-theme renders the @@...@@ tokens to literal colors
+ * before Waybar loads this stylesheet.
+ */
 
 /* Shared theme ----------------------------------------------------------- */
 
@@ -17,26 +14,26 @@
 window#waybar {
   background-color: transparent;
   background-image: none;
-  color: @foreground;
+  color: @@FOREGROUND@@;
   border: none;
   box-shadow: none;
 }
 
 window#waybar > box {
-  background-color: @background;
+  background-color: @@BACKGROUND@@;
 }
 
 #custom-host,
 #custom-os {
-  color: @lilac-ash;
+  color: @@ACCENT@@;
 }
 
 #custom-power {
-  color: @lilac-ash;
+  color: @@ACCENT@@;
 }
 
 #workspaces button {
-  color: @foreground;
+  color: @@FOREGROUND@@;
   background: transparent;
   border: none;
   box-shadow: none;
@@ -45,13 +42,13 @@ window#waybar > box {
 
 #workspaces button.active,
 #workspaces button.focused {
-  color: @foreground;
-  background: @dusty-mauve;
+  color: @@FOREGROUND@@;
+  background: @@ACTIVE@@;
 }
 
 #workspaces button:hover {
-  color: @teal;
-  background: alpha(@teal, 0.18);
+  color: @@ACCENT@@;
+  background: alpha(@@ACCENT@@, 0.18);
   box-shadow: none;
 }
 
