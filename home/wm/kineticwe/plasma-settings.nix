@@ -1,5 +1,6 @@
 {
   inputs,
+  lib,
   pkgs,
   ...
 }: {
@@ -12,6 +13,9 @@
     # enable overrideConfig after the rest of the desired KDE state is captured.
     overrideConfig = false;
     configFile."kwalletrc"."Wallet"."Enabled" = true;
+    # Noctalia regenerates this color scheme whenever the wallpaper changes;
+    # KDE applications such as Dolphin follow this stable scheme name.
+    configFile."kdeglobals"."General"."ColorScheme" = "noctalia";
 
     # Match the complete application class detected by System Settings so the
     # opacity rule applies to every native Zed window.
@@ -19,6 +23,20 @@
       {
         description = "Zed opacity";
         match.window-class = ".zed-editor-wrapped dev.zed.Zed";
+        apply = {
+          opacityactive = {
+            value = 90;
+            apply = "force";
+          };
+          opacityinactive = {
+            value = 90;
+            apply = "force";
+          };
+        };
+      }
+      {
+        description = "Dolphin opacity";
+        match.window-class = ".dolphin-wrapped org.kde.dolphin";
         apply = {
           opacityactive = {
             value = 90;
@@ -48,4 +66,18 @@
       };
     };
   };
+
+  # A rebuild may select the Noctalia scheme after its palette was generated,
+  # which does not itself emit a Noctalia colors-changed event. Synchronize an
+  # existing generated scheme during Home Manager activation; later wallpaper
+  # palette changes are handled live by Noctalia's colors_changed hook.
+  home.activation.applyNoctaliaKdeColors = lib.hm.dag.entryAfter ["writeBoundary"] ''
+    if [[ -f "$HOME/.local/share/color-schemes/noctalia.colors" ]]; then
+      # plasma-apply-colorscheme refuses to refresh a scheme that is already
+      # selected, even when its file contents changed. Toggle away first so it
+      # recopies Noctalia's generated Colors sections into kdeglobals.
+      run ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-colorscheme BreezeDark
+      run ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-colorscheme noctalia
+    fi
+  '';
 }

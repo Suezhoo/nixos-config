@@ -15,6 +15,9 @@
   hardware.enableRedistributableFirmware = true;
   services.fwupd.enable = true;
 
+  # Periodically notify SSDs which deleted blocks can be reclaimed.
+  services.fstrim.enable = true;
+
   # PipeWire provides desktop audio through ALSA, PulseAudio, and JACK.
   security.rtkit.enable = true;
   services.pipewire = {
@@ -106,13 +109,16 @@
     gh
     wget
     curl
+    yazi
     cmatrix
+    dmidecode
     firefox
     kitty
     kitty-themes
     kdePackages.dolphin # file explorer
     vlc # video player
     htop # ram display
+    btop # cpu display
 
     piper # mice gui
     pavucontrol # audio

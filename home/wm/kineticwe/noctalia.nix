@@ -1,4 +1,4 @@
-{...}: let
+{pkgs, ...}: let
   defaultWallpaper = ../../../assets/wallpapers/default.png;
 in {
   programs.noctalia = {
@@ -76,11 +76,26 @@ in {
 
       # [theme]
       theme = {
-        builtin = "Catppuccin";
-        community_palette = "Noctalia legacy";
         source = "wallpaper";
-        wallpaper_scheme = "faithful";
+        wallpaper_scheme = "vibrant";
+
+        templates = {
+          enable_builtin_templates = true;
+          builtin_ids = [
+            "kitty"
+            "kcolorscheme"
+            "gtk3"
+            "gtk4"
+          ];
+        };
       };
+
+      # Reapply the generated scheme only after Noctalia has finished updating
+      # its palette and application templates. This updates kdeglobals and
+      # notifies running KDE applications without a login-time command.
+      hooks.colors_changed = [
+        "${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-colorscheme BreezeDark && ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-colorscheme noctalia"
+      ];
 
       # [wallpaper]
       wallpaper = {

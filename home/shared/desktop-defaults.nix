@@ -15,6 +15,12 @@
     };
     gtk3.extraConfig.gtk-application-prefer-dark-theme = true;
     gtk4.extraConfig.gtk-application-prefer-dark-theme = true;
+    gtk3.extraCss = ''
+      @import url("noctalia.css");
+    '';
+    gtk4.extraCss = ''
+      @import url("noctalia.css");
+    '';
   };
 
   dconf.settings."org/gnome/desktop/interface" = {

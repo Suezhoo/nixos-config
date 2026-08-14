@@ -1,12 +1,12 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
     waypaper # GUI for managing wallpapers
-    swww # Backend daemon that visualizes the wallpaper
+    awww # Animated wallpaper backend (successor to swww)
   ];
 
   xdg.configFile."waypaper/config.ini".text = ''
     [Settings]
-    backend = swww
+    backend = awww
     fill = fill
     sort = name
     folder = ~/Pictures/wallpapers
@@ -15,15 +15,15 @@
     language = en
   '';
 
-  # Start the swww daemon for this user session
-  systemd.user.services.swww = {
+  # Start the awww daemon for this user session.
+  systemd.user.services.awww = {
     Unit = {
-      Description = "swww wallpaper daemon";
+      Description = "awww wallpaper daemon";
       After = ["graphical-session-pre.target"];
       PartOf = ["graphical-session.target"];
     };
     Service = {
-      ExecStart = "${pkgs.swww}/bin/swww-daemon";
+      ExecStart = "${pkgs.awww}/bin/awww-daemon";
       Restart = "on-failure";
     };
     Install.WantedBy = ["graphical-session.target"];
@@ -33,7 +33,7 @@
   systemd.user.services.waypaper-restore = {
     Unit = {
       Description = "Restore wallpaper via waypaper";
-      After = ["swww.service"];
+      After = ["awww.service"];
       PartOf = ["graphical-session.target"];
     };
     Service = {

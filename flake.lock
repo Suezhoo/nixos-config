@@ -16,6 +16,22 @@
         "type": "github"
       }
     },
+    "flake-compat_2": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1767039857,
+        "narHash": "sha256-vNpUSpF5Nuw8xvDLj2KCwwksIbjua2LZCqhV1LNRDns=",
+        "owner": "NixOS",
+        "repo": "flake-compat",
+        "rev": "5edf11c44bc78a0d334f6334cdaf7d60d732daab",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "flake-compat",
+        "type": "github"
+      }
+    },
     "flake-parts": {
       "inputs": {
         "nixpkgs-lib": "nixpkgs-lib"
@@ -329,17 +345,18 @@
     },
     "qylock": {
       "inputs": {
+        "flake-compat": "flake-compat_2",
         "flake-utils": "flake-utils_2",
         "nixpkgs": [
           "nixpkgs-unstable"
         ]
       },
       "locked": {
-        "lastModified": 1785237734,
-        "narHash": "sha256-b8n7JH/hhQCAlFAi/IxPOm7rXsog++U0wuWnWeOiN5s=",
+        "lastModified": 1786536622,
+        "narHash": "sha256-ypS2jlAzcZU1Sf76XNRdKoZr2oeaEV/jhRBSoxonxtc=",
         "owner": "Darkkal44",
         "repo": "qylock",
-        "rev": "c45eed24c0f9a3148a7d13081b28acc4d7874853",
+        "rev": "f86d3f669cf988f50662e60b9128ca726d269a12",
         "type": "github"
       },
       "original": {

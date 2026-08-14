@@ -57,6 +57,7 @@
         {
           type = "memory";
           key = "├ Memory";
+          format = "{used} / {total} ({percentage}%) · Corsair CMH32GX5M2X7200C34 · DDR5-4800";
         }
 
         {

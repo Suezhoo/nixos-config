@@ -60,6 +60,16 @@ in {
       "tokyo-night"
     ];
 
+    userKeymaps = [
+      {
+        context = "Editor && mode == full";
+        bindings = {
+          ctrl-enter = "editor::NewlineBelow";
+          ctrl-shift-enter = "editor::NewlineAbove";
+        };
+      }
+    ];
+
     userSettings = {
       # Keep Zed focused on editing: remove the Agent panel, Threads sidebar,
       # edit predictions, and other built-in AI features.
@@ -102,6 +112,7 @@ in {
               "nixd"
               "!nil"
             ];
+
             formatter.external = {
               command = "alejandra";
               arguments = [];
