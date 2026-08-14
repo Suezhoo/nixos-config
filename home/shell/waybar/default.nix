@@ -44,6 +44,41 @@
     '';
   };
 
+  waybarTheme = pkgs.writeShellApplication {
+    name = "waybar-theme";
+    runtimeInputs = [pkgs.coreutils pkgs.gnused];
+    text = ''
+      palette_file="${config.xdg.configHome}/gtk-3.0/noctalia.css"
+      theme_dir="''${XDG_RUNTIME_DIR:-/run/user/$(id -u)}/waybar"
+      output_file="$theme_dir/style.css"
+
+      palette_color() {
+        local name="$1"
+        local fallback="$2"
+        local value=""
+
+        if [[ -f "$palette_file" ]]; then
+          value="$(sed -n "s/^@define-color $name \([^;]*\);.*/\1/p" "$palette_file" | head -n 1)"
+        fi
+
+        printf '%s' "''${value:-$fallback}"
+      }
+
+      background="$(palette_color window_bg_color '#1e1e2e')"
+      foreground="$(palette_color window_fg_color '#f1fffa')"
+      accent="$(palette_color accent_color '#488286')"
+      active="$(palette_color accent_bg_color '#a288a6')"
+
+      mkdir -p "$theme_dir"
+      sed \
+        -e "s|@@BACKGROUND@@|$background|g" \
+        -e "s|@@FOREGROUND@@|$foreground|g" \
+        -e "s|@@ACCENT@@|$accent|g" \
+        -e "s|@@ACTIVE@@|$active|g" \
+        ${./waybar.css.in} > "$output_file"
+    '';
+  };
+
   workspaceVariants = [
     {
       #   name = "japanese";
@@ -213,7 +248,10 @@
         exit 1
       fi
 
-      exec waybar --config "$config_file"
+      ${waybarTheme}/bin/waybar-theme
+      style_file="''${XDG_RUNTIME_DIR:-/run/user/$(id -u)}/waybar/style.css"
+
+      exec waybar --config "$config_file" --style "$style_file"
     '';
   };
 in {
@@ -227,7 +265,6 @@ in {
   programs.waybar = {
     enable = true;
     systemd.enable = true;
-    style = builtins.readFile ./waybar.css;
   };
 
   # The stock Waybar unit uses its default config.  Keep the service lifecycle
