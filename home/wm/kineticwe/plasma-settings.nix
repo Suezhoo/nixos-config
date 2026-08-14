@@ -13,6 +13,9 @@
     # enable overrideConfig after the rest of the desired KDE state is captured.
     overrideConfig = false;
     configFile."kwalletrc"."Wallet"."Enabled" = true;
+    # Never reopen applications that were running when the previous Plasma
+    # session ended.
+    configFile."ksmserverrc"."General"."loginMode" = "emptySession";
     # Noctalia regenerates this color scheme whenever the wallpaper changes;
     # KDE applications such as Dolphin follow this stable scheme name.
     configFile."kdeglobals"."General"."ColorScheme" = "noctalia";
