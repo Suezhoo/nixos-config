@@ -57,7 +57,6 @@ in {
     extensions = [
       "material-icon-theme"
       "nix"
-      "tokyo-night"
     ];
 
     userKeymaps = [
@@ -83,9 +82,9 @@ in {
       };
 
       theme = {
-        mode = "dark";
-        dark = "Tokyo Night";
-        light = "Tokyo Night";
+        mode = "system";
+        dark = "Noctalia Dark";
+        light = "Noctalia Light";
       };
       icon_theme = {
         mode = "dark";
