@@ -19,7 +19,7 @@
     ../../apps/obs.nix
     ../../apps/zed.nix
 
-    ../../dev/nix-tools.nix
+    ../../bundles/development.nix
   ];
 
   home.packages = with pkgs; [
