@@ -112,7 +112,6 @@
     yazi
     cmatrix
     dmidecode
-    firefox
     kitty
     kitty-themes
     kdePackages.dolphin # file explorer

@@ -10,7 +10,9 @@
     ../../shared/common.nix
     ../../shared/desktop-defaults.nix
 
-    ../../apps/brave.nix
+    ../../apps/browsers/brave.nix
+    ../../apps/browsers/librewolf.nix
+    ../../apps/browsers/firefox.nix
     ../../apps/codium.nix
     ../../apps/fastfetch.nix
     ../../apps/fish.nix

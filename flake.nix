@@ -33,6 +33,11 @@
     home-manager-unstable.url = "github:nix-community/home-manager";
     home-manager-unstable.inputs.nixpkgs.follows = "nixpkgs-unstable";
 
+    # Community-maintained package for Zen Browser, which is not in nixpkgs.
+    zen-browser = {
+      url = "github:0xc000022070/zen-browser-flake";
+    };
+
     # Declarative KDE Plasma settings for the KineticWE profile.
     plasma-manager = {
       url = "github:nix-community/plasma-manager";
