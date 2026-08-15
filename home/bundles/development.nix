@@ -24,6 +24,10 @@
     pkg-config
     gdb
 
+    # Containers and API development
+    podman-desktop # GUI for inspecting the native Docker daemon and its resources.
+    bruno # Local-first, Git-friendly graphical API client.
+
     # General development utilities
     jq
     just

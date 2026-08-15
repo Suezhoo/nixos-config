@@ -14,7 +14,6 @@
     ../../apps/browsers/librewolf.nix
     ../../apps/browsers/firefox.nix
     ../../apps/editors/codium.nix
-    ../../apps/fastfetch.nix
     ../../apps/fish.nix
     ../../apps/kitty.nix
     ../../apps/vesktop.nix
@@ -24,6 +23,8 @@
 
     ../../bundles/development.nix
     ../../bundles/creative.nix
+
+    ../../cli/fastfetch.nix
   ];
 
   home.packages = with pkgs; [
