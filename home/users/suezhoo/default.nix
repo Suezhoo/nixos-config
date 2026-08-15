@@ -20,10 +20,17 @@
     ../../apps/zed.nix
 
     ../../bundles/development.nix
+    ../../bundles/creative.nix
   ];
 
   home.packages = with pkgs; [
-    steam
+    (steam.override {
+      # Let all Vulkan/Proton games launched by Steam connect to OBS Game
+      # Capture without requiring per-game launch options. Keep the capture
+      # layer inside Steam's runtime so unrelated Vulkan apps are unaffected.
+      extraEnv.OBS_VKCAPTURE = true;
+      extraPkgs = _: [obs-studio-plugins.obs-vkcapture];
+    })
     obsidian
     gamescope # game compositor to make games run and render same way across all types of linux2
     kdePackages.filelight # WizTree for linux (storage file viewer)

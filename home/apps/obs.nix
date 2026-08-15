@@ -73,6 +73,10 @@ in {
     package = pkgs.obs-studio.override {
       cudaSupport = true;
     };
+    plugins = [
+      pkgs.obs-studio-plugins.obs-pipewire-audio-capture
+      pkgs.obs-studio-plugins.obs-vkcapture
+    ];
   };
 
   # Generate a machine-local WebSocket password outside the Nix store, apply
