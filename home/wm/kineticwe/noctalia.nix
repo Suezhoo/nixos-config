@@ -72,6 +72,10 @@ in {
         spacer_3 = {
           type = "spacer";
         };
+
+        tray = {
+          hidden = ["Screen casting"];
+        };
       };
 
       # [theme]
@@ -97,24 +101,11 @@ in {
         "${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-colorscheme BreezeDark && ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-colorscheme noctalia"
       ];
 
-      # [wallpaper]
-      wallpaper = {
-        default = {
-          path = "${defaultWallpaper}";
-        };
-        last = {path = "${defaultWallpaper}";};
-        monitors = {
-          DP-2 = {
-            path = "${defaultWallpaper}";
-          };
-          DP-3 = {
-            path = "${defaultWallpaper}";
-          };
-          DP-4 = {
-            path = "${defaultWallpaper}";
-          };
-        };
-      };
+      # Provide an initial wallpaper for fresh installations and monitors that
+      # do not have a saved selection. Noctalia's mutable per-monitor choices
+      # take precedence, so rebuilding does not reset wallpapers chosen in its
+      # GUI.
+      wallpaper.default.path = "${defaultWallpaper}";
 
       # [location]
       location = {

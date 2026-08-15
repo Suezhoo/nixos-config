@@ -3,5 +3,6 @@
   # Do not link or migrate state from the Windows installation.
   home.packages = with pkgs-unstable; [
     vesktop
+    discord
   ];
 }

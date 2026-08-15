@@ -44,6 +44,9 @@ in {
   programs.zed-editor = {
     enable = true;
     package = zedWithCli;
+    # Keep settings authoritative: removing an extension or setting here must
+    # also remove it from Zed instead of merging with historical UI state.
+    mutableUserSettings = false;
 
     # Tools used by language servers and formatters must be visible to Zed
     # even when it is launched from the desktop rather than a terminal.
@@ -57,6 +60,9 @@ in {
     extensions = [
       "material-icon-theme"
       "nix"
+      "react-snippets"
+      "react-typescript-snippets"
+      "emmet"
     ];
 
     userKeymaps = [
