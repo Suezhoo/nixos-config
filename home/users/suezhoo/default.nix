@@ -13,13 +13,14 @@
     ../../apps/browsers/brave.nix
     ../../apps/browsers/librewolf.nix
     ../../apps/browsers/firefox.nix
-    ../../apps/codium.nix
+    ../../apps/editors/codium.nix
     ../../apps/fastfetch.nix
     ../../apps/fish.nix
     ../../apps/kitty.nix
     ../../apps/vesktop.nix
     ../../apps/obs.nix
-    ../../apps/zed.nix
+    ../../apps/editors/rider.nix
+    ../../apps/editors/zed.nix
 
     ../../bundles/development.nix
     ../../bundles/creative.nix

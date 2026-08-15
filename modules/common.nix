@@ -11,6 +11,10 @@
   # Network connections and desktop network controls.
   networking.networkmanager.enable = true;
 
+  # Docker daemon and command-line client. Users still need membership in the
+  # docker group, configured in their user module, to run it without sudo.
+  virtualisation.docker.enable = true;
+
   # Firmware for hardware such as Wi-Fi, audio, and other peripherals.
   hardware.enableRedistributableFirmware = true;
   services.fwupd.enable = true;

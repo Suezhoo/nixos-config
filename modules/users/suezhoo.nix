@@ -6,6 +6,6 @@
     isNormalUser = true;
     group = "Suezhoo";
     shell = pkgs.fish;
-    extraGroups = ["wheel" "networkmanager" "video" "audio" "input"];
+    extraGroups = ["wheel" "networkmanager" "video" "audio" "input" "docker"];
   };
 }
