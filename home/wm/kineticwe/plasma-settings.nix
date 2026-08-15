@@ -1,4 +1,5 @@
 {
+  config,
   inputs,
   lib,
   pkgs,
@@ -75,6 +76,11 @@
         name = "Open Kitty";
         key = "Meta+T";
         command = "${pkgs.kitty}/bin/kitty";
+      };
+      "save-obs-replay" = {
+        name = "Save OBS Replay";
+        key = "F8";
+        command = "${config.home.profileDirectory}/bin/obs-save-replay";
       };
     };
   };
