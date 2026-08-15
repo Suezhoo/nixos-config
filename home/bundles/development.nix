@@ -31,5 +31,8 @@
     fd
     unzip
     shellcheck
+
+    # Cloudflare Tunnel and Access client for exposing local services securely.
+    cloudflared
   ];
 }
