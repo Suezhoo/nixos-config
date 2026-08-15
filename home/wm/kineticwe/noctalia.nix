@@ -72,6 +72,10 @@ in {
         spacer_3 = {
           type = "spacer";
         };
+
+        tray = {
+          hidden = ["Screen casting"];
+        };
       };
 
       # [theme]
