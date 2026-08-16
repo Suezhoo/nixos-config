@@ -20,6 +20,7 @@
     ../../apps/obs.nix
     ../../apps/editors/rider.nix
     ../../apps/editors/zed.nix
+    ../../apps/remote-desktop
 
     ../../bundles/development.nix
     ../../bundles/creative.nix

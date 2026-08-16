@@ -1,5 +1,8 @@
 {pkgs, ...}: {
-  imports = [./fonts.nix];
+  imports = [
+    ./fonts.nix
+    ./services/remote-desktop.nix
+  ];
 
   # Enable modern CLI + flakes permanently
   nix.settings.experimental-features = ["nix-command" "flakes"];
