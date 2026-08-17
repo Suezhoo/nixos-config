@@ -16,6 +16,7 @@
     ../../apps/editors/codium.nix
     ../../apps/fish.nix
     ../../apps/kitty.nix
+    ../../apps/thunderbird.nix
     ../../apps/vesktop.nix
     ../../apps/obs.nix
     ../../apps/editors/rider.nix
@@ -53,10 +54,14 @@
       "x-scheme-handler/discord" = ["vesktop.desktop"];
     };
     defaultApplications = {
+      "application/xhtml+xml" = ["brave-browser.desktop"];
       "inode/directory" = ["org.kde.dolphin.desktop"];
       "text/plain" = ["dev.zed.Zed.desktop"];
       "application/x-zerosize" = ["dev.zed.Zed.desktop"];
+      "text/html" = ["brave-browser.desktop"];
       "x-scheme-handler/discord" = ["vesktop.desktop"];
+      "x-scheme-handler/http" = ["brave-browser.desktop"];
+      "x-scheme-handler/https" = ["brave-browser.desktop"];
     };
   };
 
