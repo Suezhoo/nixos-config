@@ -1,6 +1,7 @@
 {pkgs, ...}: {
   imports = [
     ./fonts.nix
+    ./hardware/peripherals.nix
     ./services/remote-desktop.nix
   ];
 
@@ -98,17 +99,11 @@
   services.udisks2.enable = true;
   services.gvfs.enable = true;
 
-  # Install access rules for Logitech wireless receivers.
-  hardware.logitech.wireless.enable = true;
-
   # Required for Home Manager's desktop appearance settings.
   programs.dconf.enable = true;
 
   # Compressed RAM-backed swap for extra protection under memory pressure.
   zramSwap.enable = true;
-
-  # Enable ratbagd for Piper (Mouse setting manager GUI)
-  services.ratbagd.enable = true;
 
   # Handy tools
   environment.systemPackages = with pkgs; [
@@ -126,7 +121,6 @@
     htop # ram display
     btop # cpu display
 
-    piper # mice gui
     pavucontrol # audio
     wdisplays # for arranging display layout
   ];

@@ -41,6 +41,7 @@
     gamescope # game compositor to make games run and render same way across all types of linux2
     kdePackages.filelight # WizTree for linux (storage file viewer)
     pkgs-stable.spotify
+    deadlock-mod-manager # name speaks for it self
 
     # unstable
     pkgs-unstable.codex
