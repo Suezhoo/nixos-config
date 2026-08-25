@@ -35,13 +35,24 @@
       # Capture without requiring per-game launch options. Keep the capture
       # layer inside Steam's runtime so unrelated Vulkan apps are unaffected.
       extraEnv.OBS_VKCAPTURE = true;
-      extraPkgs = _: [obs-studio-plugins.obs-vkcapture];
+      extraPkgs = _: [
+        obs-studio-plugins.obs-vkcapture
+
+        # Steam runs in an isolated FHS environment and does not reliably see
+        # fonts installed in the host profile. Include its fallback fonts here.
+        noto-fonts
+        noto-fonts-cjk-sans
+        noto-fonts-cjk-serif
+        noto-fonts-color-emoji
+        nerd-fonts.symbols-only
+      ];
     })
     obsidian
     gamescope # game compositor to make games run and render same way across all types of linux2
     kdePackages.filelight # WizTree for linux (storage file viewer)
     pkgs-stable.spotify
     deadlock-mod-manager # name speaks for it self
+    qbittorrent # torrent client
 
     # unstable
     pkgs-unstable.codex

@@ -1,8 +1,10 @@
 {pkgs-unstable, ...}: {
-  # Vesktop keeps its profile in the normal writable Linux config directory.
-  # Do not link or migrate state from the Windows installation.
+  # Install Vesktop alongside official Discord with Vencord injected.
+  # Each client keeps its own profile in the normal writable config directory.
   home.packages = with pkgs-unstable; [
     vesktop
-    discord
+    (discord.override {
+      withVencord = true;
+    })
   ];
 }

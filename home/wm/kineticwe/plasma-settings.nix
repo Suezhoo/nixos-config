@@ -10,6 +10,13 @@
   programs.plasma = {
     enable = true;
 
+    # KWin owns the compositor cursor in KineticWE. Mirror the shared Home
+    # Manager cursor settings so plasma-manager reapplies it live on rebuild.
+    workspace.cursor = {
+      theme = config.home.pointerCursor.name;
+      size = config.home.pointerCursor.size;
+    };
+
     # Keep settings not listed here editable through System Settings. We can
     # enable overrideConfig after the rest of the desired KDE state is captured.
     overrideConfig = false;

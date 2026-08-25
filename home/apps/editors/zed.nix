@@ -58,6 +58,7 @@ in {
     ];
 
     extensions = [
+      "git-firefly"
       "material-icon-theme"
       "nix"
       "react-snippets"

@@ -1,11 +1,11 @@
 {pkgs, ...}: {
   # Configure one cursor theme consistently across Wayland, GTK, and XWayland
-  # applications. Bibata includes distinct link, text, resize, and busy shapes.
-  home.pointerCursor.enable = true;
+  # applications.
   home.pointerCursor = {
-    name = "Bibata-Modern-Ice";
-    package = pkgs.bibata-cursors;
-    size = 24;
+    enable = true;
+    name = "Breeze_Light";
+    package = pkgs.kdePackages.breeze;
+    size = 20;
 
     gtk.enable = true;
     x11.enable = true;

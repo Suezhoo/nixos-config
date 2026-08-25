@@ -23,19 +23,19 @@ in {
     powerManagement.enable = true;
   };
 
-  # GL/Vulkan stack + helper tools
+  # GL/Vulkan stack and NVIDIA's NVDEC-to-VA-API compatibility driver.
   hardware.graphics = {
     enable = true;
     enable32Bit = true; # 32-bit for Steam/Proton etc.
-    extraPackages = with pkgs; [
-      nvidia-vaapi-driver
-      libva
-      vdpauinfo
-      vulkan-tools
-    ];
+    extraPackages = [pkgs.nvidia-vaapi-driver];
   };
 
   # `nvidia-settings` cannot expose Digital Vibrance controls to a Wayland
   # compositor. nvibrant talks to the NVIDIA modesetting driver directly.
-  environment.systemPackages = [pkgs-unstable.nvibrant];
+  environment.systemPackages = with pkgs; [
+    libva-utils
+    vdpauinfo
+    vulkan-tools
+    pkgs-unstable.nvibrant
+  ];
 }
