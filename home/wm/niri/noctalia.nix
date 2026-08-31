@@ -33,7 +33,7 @@
   '';
 
   local.desktopShell.niri = {
-    launcherBinding = ''Mod+D hotkey-overlay-title="Open Noctalia Launcher" { spawn "noctalia" "msg" "panel-toggle" "launcher"; }'';
+    launcherBinding = ''Mod+Space hotkey-overlay-title="Open Noctalia Launcher" { spawn "noctalia" "msg" "panel-toggle" "launcher"; }'';
     lockBinding = ''Super+Alt+L hotkey-overlay-title="Lock with Noctalia" { spawn "noctalia" "msg" "session" "lock"; }'';
 
     # Noctalia writes this file from the current wallpaper palette. Keeping the

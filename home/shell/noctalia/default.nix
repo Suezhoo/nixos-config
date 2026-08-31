@@ -56,6 +56,10 @@ in {
         tray.hidden = ["Screen casting"];
       };
 
+      dock = {
+        active_monitor_only = false;
+      };
+
       theme = {
         source = "wallpaper";
         wallpaper_scheme = "vibrant";
