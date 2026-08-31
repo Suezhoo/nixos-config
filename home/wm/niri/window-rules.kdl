@@ -1,0 +1,47 @@
+// Niri window rules
+// https://yalter.github.io/niri/Configuration:-Window-Rules
+
+// Draw focus rings and borders around window geometry instead of rendering a
+// solid rectangle behind transparent clients such as Kitty.
+window-rule {
+    draw-border-with-background false
+}
+
+// Open primary desktop applications as full-width columns while preserving
+// Niri's gaps, borders, and the desktop shell. Check IDs with: niri msg windows
+window-rule {
+    match app-id=r#"(?i)^discord$"#
+    match app-id=r#"(?i)^spotify$"#
+    match app-id=r#"(?i)^(brave-browser|com\.brave\.Browser)$"#
+
+    open-maximized true
+}
+
+// Work around WezTerm's initial configure bug by leaving its width unset.
+window-rule {
+    match app-id=r#"^org\.wezfurlong\.wezterm$"#
+    default-column-width {}
+}
+
+// Open the Firefox picture-in-picture player as floating by default. This
+// matches both host Firefox and the org.mozilla.firefox Flatpak app ID.
+window-rule {
+    match app-id=r#"firefox$"# title="^Picture-in-Picture$"
+    open-floating true
+}
+
+// Example: block password managers from built-in Niri screenshots and casts.
+/-window-rule {
+    match app-id=r#"^org\.keepassxc\.KeePassXC$"#
+    match app-id=r#"^org\.gnome\.World\.Secrets$"#
+
+    block-out-from "screen-capture"
+    // Use this instead to keep them visible to third-party screenshot tools:
+    // block-out-from "screencast"
+}
+
+// Example: enable rounded corners for every window.
+/-window-rule {
+    geometry-corner-radius 12
+    clip-to-geometry true
+}

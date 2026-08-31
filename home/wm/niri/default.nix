@@ -4,6 +4,10 @@
     ./niri.nix
   ];
 
+  # Keep application-specific behavior separate from the main compositor
+  # configuration so window rules remain easy to scan and extend.
+  xdg.configFile."niri/window-rules.kdl".source = ./window-rules.kdl;
+
   # Niri uses the GNOME portal for PipeWire screen capture and the GTK
   # portal for ordinary desktop integration such as file pickers.
   xdg.portal = {
