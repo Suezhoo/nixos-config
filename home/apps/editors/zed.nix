@@ -65,6 +65,7 @@ in {
       "react-typescript-snippets"
       "svelte"
       "emmet"
+      "kdl"
     ];
 
     userKeymaps = [
