@@ -170,20 +170,11 @@
             // off
 
             // How many logical pixels the ring extends out from the windows.
-            width 4
+            width 2
 
-            // Colors can be set in a variety of ways:
-            // - CSS named colors: "red"
-            // - RGB hex: "#rgb", "#rgba", "#rrggbb", "#rrggbbaa"
-            // - CSS-like notation: "rgb(255, 127, 0)", rgba(), hsl() and a few others.
-
-            // Color of the ring on the active monitor.
+            // Fallback colors for shells that do not generate a palette.
+            // A shell-specific include appended below can override them.
             active-color "#7fc8ff"
-
-            // Color of the ring on inactive monitors.
-            //
-            // The focus ring only draws around the active window, so the only place
-            // where you can see its inactive-color is on other monitors.
             inactive-color "#505050"
 
             // You can also use gradients. They take precedence over solid colors.
@@ -626,6 +617,10 @@
         // moving the mouse or pressing any other key.
         Mod+Shift+P { power-off-monitors; }
     }
+
+    // Shell-specific configuration is last so generated values override the
+    // static fallbacks above when sections are merged by Niri.
+    ${config.local.desktopShell.niri.extraConfig}
 
   '';
 }

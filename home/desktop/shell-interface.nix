@@ -17,5 +17,11 @@
       type = lib.types.str;
       description = "Complete Niri KDL binding for the shell's lock screen.";
     };
+
+    extraConfig = lib.mkOption {
+      type = lib.types.lines;
+      default = "";
+      description = "Top-level Niri KDL appended by the selected desktop shell.";
+    };
   };
 }

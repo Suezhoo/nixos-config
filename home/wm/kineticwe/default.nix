@@ -7,7 +7,7 @@
   # registration remains the responsibility of modules/sessions/kineticwe.nix.
   imports = [
     inputs.kineticwe.homeModules.default
-    inputs.noctalia.homeModules.default
+    ../../shell/noctalia
 
     ./noctalia.nix
     ./plasma-settings.nix
