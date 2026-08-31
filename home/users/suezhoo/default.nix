@@ -25,33 +25,15 @@
 
     ../../bundles/development.nix
     ../../bundles/creative.nix
+    ../../bundles/gaming.nix
 
     ../../cli/fastfetch.nix
   ];
 
   home.packages = with pkgs; [
-    (steam.override {
-      # Let all Vulkan/Proton games launched by Steam connect to OBS Game
-      # Capture without requiring per-game launch options. Keep the capture
-      # layer inside Steam's runtime so unrelated Vulkan apps are unaffected.
-      extraEnv.OBS_VKCAPTURE = true;
-      extraPkgs = _: [
-        obs-studio-plugins.obs-vkcapture
-
-        # Steam runs in an isolated FHS environment and does not reliably see
-        # fonts installed in the host profile. Include its fallback fonts here.
-        noto-fonts
-        noto-fonts-cjk-sans
-        noto-fonts-cjk-serif
-        noto-fonts-color-emoji
-        nerd-fonts.symbols-only
-      ];
-    })
     obsidian
-    gamescope # game compositor to make games run and render same way across all types of linux2
     kdePackages.filelight # WizTree for linux (storage file viewer)
     pkgs-stable.spotify
-    deadlock-mod-manager # name speaks for it self
     qbittorrent # torrent client
 
     # unstable
@@ -80,6 +62,20 @@
   # Applications may rewrite this file at runtime. Keep the declarative MIME
   # associations authoritative instead of repeatedly creating backup conflicts.
   xdg.configFile."mimeapps.list".force = true;
+
+  # Apply the most recently selected OpenRGB startup profile at login. Loading
+  # a profile through the CLI does not open the GUI and exits once it is done.
+  xdg.configFile."autostart/OpenRGB.desktop" = {
+    force = true;
+    text = ''
+      [Desktop Entry]
+      Type=Application
+      Name=OpenRGB
+      Comment=Apply the last-used RGB profile
+      Exec=${pkgs.openrgb}/bin/openrgb --profile "pink all around"
+      Terminal=false
+    '';
+  };
 
   programs.git = {
     enable = true;

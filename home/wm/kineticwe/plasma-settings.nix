@@ -45,11 +45,11 @@
         match.window-class = ".zed-editor-wrapped dev.zed.Zed";
         apply = {
           opacityactive = {
-            value = 90;
+            value = 100;
             apply = "force";
           };
           opacityinactive = {
-            value = 90;
+            value = 100;
             apply = "force";
           };
         };
@@ -59,11 +59,11 @@
         match.window-class = ".dolphin-wrapped org.kde.dolphin";
         apply = {
           opacityactive = {
-            value = 90;
+            value = 100;
             apply = "force";
           };
           opacityinactive = {
-            value = 90;
+            value = 100;
             apply = "force";
           };
         };

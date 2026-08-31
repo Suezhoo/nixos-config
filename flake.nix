@@ -5,9 +5,6 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-    # CachyOS Kernel
-    nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
-
     # SDDM and Quickshell lock-screen themes.
     qylock = {
       url = "github:Darkkal44/qylock";
@@ -59,7 +56,6 @@
         system = "x86_64-linux";
         specialArgs = {inherit inputs;};
         modules = [
-          ./modules/kernel/cachyos.nix
           ./hosts/moonine/configuration.nix
           homeManagerInput.nixosModules.home-manager
           desktopProfile
@@ -68,11 +64,11 @@
   in {
     nixosConfigurations = {
       # Desktop stacks are explicit, known-good compositor/shell pairings.
-      # `moonine` is an alias for the default KDE + KineticWE configuration.
+      # `moonine` is an alias for the default configuration.
       # KineticWE tracks the newer KDE/Qt stack from nixpkgs-unstable. Build
       # the complete Plasma environment from that same revision so KWin, its
       # KCMs, portals, and libkscreen all speak matching protocols.
-      moonine = mkMoonine nixpkgs-unstable home-manager-unstable ./profiles/desktops/kineticwe.nix;
+      moonine = mkMoonine nixpkgs home-manager ./profiles/desktops/niri-noctalia.nix;
       moonine-kineticwe = mkMoonine nixpkgs-unstable home-manager-unstable ./profiles/desktops/kineticwe.nix;
 
       moonine-custom = mkMoonine nixpkgs home-manager ./profiles/desktops/niri-custom.nix;

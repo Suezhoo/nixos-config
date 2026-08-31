@@ -1,6 +1,7 @@
 {pkgs, ...}: {
   imports = [
     ./fonts.nix
+    ./gaming.nix
     ./hardware/peripherals.nix
     ./services/remote-desktop.nix
   ];

@@ -23,6 +23,7 @@
     ninja
     pkg-config
     gdb
+    dotnet-sdk_10
 
     # Containers and API development
     podman-desktop # GUI for inspecting the native Docker daemon and its resources.

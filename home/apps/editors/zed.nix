@@ -63,6 +63,7 @@ in {
       "nix"
       "react-snippets"
       "react-typescript-snippets"
+      "svelte"
       "emmet"
     ];
 
@@ -111,6 +112,12 @@ in {
           })
           prettierLanguages)
         // {
+          Svelte.formatter.external = {
+            # Use the workspace's Prettier and prettier-plugin-svelte.
+            command = "pnpm";
+            arguments = ["exec" "prettier" "--stdin-filepath" "{buffer_path}"];
+          };
+
           Nix = {
             # The Nix extension enables nil by default. Prefer nixd and
             # explicitly disable nil instead of merely changing server order.

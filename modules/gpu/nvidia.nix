@@ -13,11 +13,12 @@ in {
   # Use the NVIDIA driver
   services.xserver.videoDrivers = ["nvidia"];
 
-  # Modern NVIDIA on Wayland (Ada 4080): use the open kernel module.
+  # Use the proprietary kernel module for the RTX 4080. This keeps the
+  # userspace driver unchanged while avoiding open-module regressions.
   hardware.nvidia = {
-    # Use the NVIDIA driver supplied by the active CachyOS kernel package set.
+    # Use the latest NVIDIA driver supplied by the active kernel package set.
     package = config.boot.kernelPackages.nvidiaPackages.latest;
-    open = true; # satisfies >=560 assertion and works well on Wayland
+    open = false;
     modesetting.enable = true; # sets nvidia-drm.modeset=1 automatically
     nvidiaSettings = true; # optional GUI tool
     powerManagement.enable = true;
