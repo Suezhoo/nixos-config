@@ -23,6 +23,7 @@ The flake exposes these physical-machine configurations:
 | `moonine-inir` | Niri + iNiR |
 | `moonine-kineticwe` | Plasma plus a KineticWE session with upstream Noctalia integration |
 | `moonine-hyprland` | Hyprland + the custom shell |
+| `moonine-hyprland-noctalia` | Hyprland scrolling layout + Noctalia |
 
 Build a configuration without activating it:
 

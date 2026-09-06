@@ -14,7 +14,7 @@ window-rule {
     match app-id=r#"(?i)^spotify$"#
     match app-id=r#"(?i)^(brave-browser|com\.brave\.Browser)$"#
 
-    open-maximized true
+    default-column-width { proportion 1.0; }
 }
 
 // Work around WezTerm's initial configure bug by leaving its width unset.
@@ -30,6 +30,16 @@ window-rule {
     open-floating true
 }
 
+// Steam implements notifications as short-lived XWayland windows. Keep these
+// out of the center of the screen and prevent them from stealing focus.
+window-rule {
+    match app-id="steam" title=r#"^notificationtoasts_\d+_desktop$"#
+
+    open-floating true
+    open-focused false
+    default-floating-position x=10 y=10 relative-to="bottom-right"
+}
+
 // Example: block password managers from built-in Niri screenshots and casts.
 /-window-rule {
     match app-id=r#"^org\.keepassxc\.KeePassXC$"#
@@ -40,8 +50,8 @@ window-rule {
     // block-out-from "screencast"
 }
 
-// Example: enable rounded corners for every window.
-/-window-rule {
-    geometry-corner-radius 12
+// Give every window subtly rounded corners.
+window-rule {
+    geometry-corner-radius 4
     clip-to-geometry true
 }

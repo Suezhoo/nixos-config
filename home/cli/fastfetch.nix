@@ -57,7 +57,7 @@
         {
           type = "memory";
           key = "├ Memory";
-          format = "{used} / {total} ({percentage}%)";
+          format = "{used} / {total} ({percentage})";
         }
 
         {

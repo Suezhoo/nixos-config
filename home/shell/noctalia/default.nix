@@ -46,6 +46,13 @@ in {
         input_volume.show_label = false;
         volume.show_label = false;
         keyboard_layout.show_label = false;
+        workspaces = {
+          show_labels = true;
+          # For Hyprland names such as `01@DP-3`, Noctalia's ID label mode
+          # extracts the leading number. Each output starts with 1-5 and shows
+          # higher-numbered workspaces when they are created on demand.
+          label_source = "id";
+        };
         ram.scale = 0.9;
         network.show_label = false;
         spacer_2 = {
@@ -61,6 +68,10 @@ in {
       };
 
       theme = {
+        # Keep the desktop's appearance contract consistently dark.  The
+        # wallpaper still supplies the palette; this only controls whether
+        # applications and the XDG appearance portal advertise dark or light.
+        mode = "dark";
         source = "wallpaper";
         wallpaper_scheme = "vibrant";
         templates = {

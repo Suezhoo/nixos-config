@@ -78,22 +78,6 @@
       ];
     };
 
-    wireplumber.extraConfig."51-rename-sony-audio" = {
-      "monitor.alsa.rules" = [
-        {
-          matches = [
-            {
-              "node.name" = "alsa_output.pci-0000_01_00.1.hdmi-stereo-extra1";
-            }
-          ];
-
-          actions.update-props = {
-            "node.description" = "Sony INZONE M10S Headphones";
-            "node.nick" = "Sony INZONE M10S Headphones";
-          };
-        }
-      ];
-    };
   };
 
   # Allow graphical file managers to mount removable drives.

@@ -23,7 +23,8 @@
     Service = {
       Type = "oneshot";
       ExecStartPre = "${pkgs.coreutils}/bin/sleep 3";
-      ExecStart = "${lib.getExe pkgs-unstable.nvibrant} 0 450 0 450 0 450 0";
+      ExecStart = "${lib.getExe pkgs-unstable.nvibrant} 0 450 0 0 0 450 0";
+      # 0 450(left monitor) 0 0(middle monitor) 0 450(right monitor) 0
     };
 
     Install.WantedBy = ["graphical-session.target"];

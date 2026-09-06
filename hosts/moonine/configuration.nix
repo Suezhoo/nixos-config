@@ -6,6 +6,7 @@
 }: {
   imports = [
     ./hardware-configuration.nix
+    ./audio.nix
     ../../modules/common.nix
     ../../modules/gpu/nvidia.nix
     ../../modules/users/suezhoo.nix

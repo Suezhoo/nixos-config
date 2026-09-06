@@ -75,6 +75,7 @@
       moonine-noctalia = mkMoonine nixpkgs home-manager ./profiles/desktops/niri-noctalia.nix;
       moonine-inir = mkMoonine nixpkgs home-manager ./profiles/desktops/niri-inir.nix;
       moonine-hyprland = mkMoonine nixpkgs home-manager ./profiles/desktops/hyprland-custom.nix;
+      moonine-hyprland-noctalia = mkMoonine nixpkgs home-manager ./profiles/desktops/hyprland-noctalia.nix;
     };
   };
 }

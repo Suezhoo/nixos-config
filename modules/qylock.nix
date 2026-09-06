@@ -9,7 +9,7 @@
 
   programs.qylock = {
     enable = true;
-    theme = "field";
+    theme = "sword";
   };
 
   services.displayManager.sddm = {

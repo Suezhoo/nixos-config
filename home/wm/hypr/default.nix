@@ -1,4 +1,71 @@
-{pkgs, ...}: {
+{pkgs, ...}: let
+  # Hyprland workspace names are global, unlike Niri's per-output workspace
+  # indices. Qualify the internal name with the output while keeping the local
+  # number first so shells such as Noctalia can display only that number.
+  hyprLocalWorkspace = pkgs.writeShellScriptBin "hypr-local-workspace" ''
+    action="$1"
+    slot="$2"
+
+    monitor="$(${pkgs.hyprland}/bin/hyprctl -j monitors | ${pkgs.jq}/bin/jq -r '.[] | select(.focused) | .name')"
+    workspace_slot="$(${pkgs.coreutils}/bin/printf '%02d' "$slot")"
+    workspace_name="$workspace_slot@$monitor"
+    case "$action" in
+      focus) dispatcher=workspace ;;
+      move) dispatcher=movetoworkspace ;;
+      *) exit 2 ;;
+    esac
+
+    exec ${pkgs.hyprland}/bin/hyprctl dispatch "$dispatcher" "name:$workspace_name"
+  '';
+
+  # Toggle a Niri-like maximized state without telling the client that it is
+  # fullscreen. Explicitly clearing both states makes the second press restore
+  # the window even when the scrolling layout handles fullscreen internally.
+  hyprToggleMaximize = pkgs.writeShellScriptBin "hypr-toggle-maximize" ''
+    fullscreen_state="$(${pkgs.hyprland}/bin/hyprctl -j activewindow | ${pkgs.jq}/bin/jq -r '.fullscreen')"
+
+    if [ "$fullscreen_state" = 1 ] || [ "$fullscreen_state" = 3 ]; then
+      exec ${pkgs.hyprland}/bin/hyprctl dispatch fullscreenstate "0 0 set"
+    else
+      exec ${pkgs.hyprland}/bin/hyprctl dispatch fullscreenstate "1 0 set"
+    fi
+  '';
+
+  # Hyprland's scrolling layout can move its tape by an exact pixel delta, but
+  # it does not expose that operation as a continuous mouse dispatcher. Bridge
+  # pointer motion to layout messages while Super+MMB is held.
+  hyprPanScrolling = pkgs.writeShellScriptBin "hypr-pan-scrolling" ''
+    state_dir="''${XDG_RUNTIME_DIR:?}/hypr-pan-scrolling"
+    active_file="$state_dir/active"
+    lock_dir="$state_dir/lock"
+
+    case "''${1:-}" in
+      start)
+        ${pkgs.coreutils}/bin/mkdir -p "$state_dir"
+        ${pkgs.coreutils}/bin/touch "$active_file"
+        if ! ${pkgs.coreutils}/bin/mkdir "$lock_dir" 2>/dev/null; then
+          exit 0
+        fi
+        trap '${pkgs.coreutils}/bin/rm -f "$active_file"; ${pkgs.coreutils}/bin/rmdir "$lock_dir" 2>/dev/null || true' EXIT
+
+        previous_x="$(${pkgs.hyprland}/bin/hyprctl -j cursorpos | ${pkgs.jq}/bin/jq -r .x)"
+        while [ -e "$active_file" ]; do
+          ${pkgs.coreutils}/bin/sleep 0.016
+          current_x="$(${pkgs.hyprland}/bin/hyprctl -j cursorpos | ${pkgs.jq}/bin/jq -r .x)"
+          delta=$((current_x - previous_x))
+          previous_x="$current_x"
+          if [ "$delta" -ne 0 ]; then
+            ${pkgs.hyprland}/bin/hyprctl dispatch layoutmsg "move $delta" >/dev/null
+          fi
+        done
+        ;;
+      stop)
+        ${pkgs.coreutils}/bin/rm -f "$active_file"
+        ;;
+      *) exit 2 ;;
+    esac
+  '';
+in {
   # Make hyprland visible in login screen (desktop manager)
   xdg.portal.enable = true;
   xdg.portal.extraPortals = with pkgs; [
@@ -17,6 +84,11 @@
 
   # Required for default hyprland configuration
   programs.kitty.enable = true;
+  home.packages = [
+    hyprLocalWorkspace
+    hyprPanScrolling
+    hyprToggleMaximize
+  ];
 
   wayland.windowManager.hyprland.settings = {
     # This is an example Hyprland config file for Nix.
@@ -49,7 +121,7 @@
 
     # Set programs that you use
 
-    "$terminal" = "foot";
+    "$terminal" = "kitty";
     "$fileManager" = "dolphin";
     "$menu" = "wofi --show drun";
 
@@ -100,12 +172,16 @@
 
     # https://wiki.hypr.land/Configuring/Variables/#general
     general = {
-      gaps_in = 5;
-      gaps_out = 10;
+      # Match Niri's breathing room, including between maximized windows and
+      # layer-shell panels such as Waybar/Noctalia.
+      gaps_in = 8;
+      gaps_out = 16;
 
       border_size = 2;
 
-      "col.active_border" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
+      # Solid fallbacks for shells that do not generate a wallpaper palette.
+      # The Noctalia profile overrides these from its current palette.
+      "col.active_border" = "rgb(7fc8ff)";
       "col.inactive_border" = "rgba(595959aa)";
 
       # Set to true enable resizing windows by clicking and dragging on borders and gaps
@@ -194,7 +270,6 @@
 
     # See https://wiki.hypr.land/Configuring/Dwindle-Layout/ for more
     dwindle = {
-      pseudotile = true; # Master switch for pseudotiling. Enabling is bound to mainMod + P in the keybinds section below
       preserve_split = true; # You probably want this
     };
 
@@ -224,22 +299,11 @@
       follow_mouse = 1;
 
       sensitivity = 0; # -1.0 - 1.0, 0 means no modification.
+      accel_profile = "flat"; # Match Niri's unaccelerated 1:1 mouse motion.
 
       touchpad = {
         natural_scroll = false;
       };
-    };
-
-    # https://wiki.hypr.land/Configuring/Variables/#gestures
-    gestures = {
-      workspace_swipe = false;
-    };
-
-    # Example per-device config
-    # See https://wiki.hypr.land/Configuring/Keywords/#per-device-input-configs for more
-    device = {
-      name = "epic-mouse-v1";
-      sensitivity = -0.5;
     };
 
     ###################
@@ -250,54 +314,63 @@
     "$mainMod" = "SUPER"; # Sets "Windows" key as main modifier
 
     bind = [
-      # Example binds, see https://wiki.hypr.land/Configuring/Binds/ for more
-      "$mainMod, Q, exec, $terminal"
-      "$mainMod, C, killactive,"
-      "$mainMod, M, exit,"
+      # Core application/session bindings.
+      "$mainMod, T, exec, $terminal"
+      "$mainMod, Q, killactive,"
+      "$mainMod SHIFT, E, exit,"
       "$mainMod, E, exec, $fileManager"
-      "$mainMod, F, fullscreen"
+      "$mainMod, Space, exec, $menu"
+      # Super+F toggles a Niri-like maximized state and reliably restores the
+      # window on the second press. Shift+F toggles true fullscreen.
+      "$mainMod, F, fullscreen, 1"
+      "$mainMod SHIFT, F, fullscreen, 0"
       "$mainMod, V, togglefloating,"
-      "$mainMod, R, exec, $menu"
-      "$mainMod, P, pseudo," # dwindle
-      "$mainMod, J, togglesplit," # dwindle
 
-      # Move focus with mainMod + arrow keys
-      "$mainMod, left, movefocus, l"
-      "$mainMod, right, movefocus, r"
+      # Conventional Hyprland navigation. The scrolling layout's focus message
+      # handles horizontal columns and wraps at either end of the tape.
+      "$mainMod, left, layoutmsg, focus l"
+      "$mainMod, right, layoutmsg, focus r"
       "$mainMod, up, movefocus, u"
       "$mainMod, down, movefocus, d"
 
-      # Switch workspaces with mainMod + [0-9]
-      "$mainMod, 1, workspace, 1"
-      "$mainMod, 2, workspace, 2"
-      "$mainMod, 3, workspace, 3"
-      "$mainMod, 4, workspace, 4"
-      "$mainMod, 5, workspace, 5"
-      "$mainMod, 6, workspace, 6"
-      "$mainMod, 7, workspace, 7"
-      "$mainMod, 8, workspace, 8"
-      "$mainMod, 9, workspace, 9"
-      "$mainMod, 0, workspace, 10"
+      # Shift plus an arrow moves the active window in that direction.
+      "$mainMod SHIFT, left, movewindow, l"
+      "$mainMod SHIFT, right, movewindow, r"
+      "$mainMod SHIFT, up, movewindow, u"
+      "$mainMod SHIFT, down, movewindow, d"
 
-      # Move active window to a workspace with mainMod + SHIFT + [0-9]
-      "$mainMod SHIFT, 1, movetoworkspace, 1"
-      "$mainMod SHIFT, 2, movetoworkspace, 2"
-      "$mainMod SHIFT, 3, movetoworkspace, 3"
-      "$mainMod SHIFT, 4, movetoworkspace, 4"
-      "$mainMod SHIFT, 5, movetoworkspace, 5"
-      "$mainMod SHIFT, 6, movetoworkspace, 6"
-      "$mainMod SHIFT, 7, movetoworkspace, 7"
-      "$mainMod SHIFT, 8, movetoworkspace, 8"
-      "$mainMod SHIFT, 9, movetoworkspace, 9"
-      "$mainMod SHIFT, 0, movetoworkspace, 10"
+      # Niri-like per-monitor workspace numbers. The helper resolves 1-10
+      # within the currently focused output.
+      "$mainMod, 1, exec, hypr-local-workspace focus 1"
+      "$mainMod, 2, exec, hypr-local-workspace focus 2"
+      "$mainMod, 3, exec, hypr-local-workspace focus 3"
+      "$mainMod, 4, exec, hypr-local-workspace focus 4"
+      "$mainMod, 5, exec, hypr-local-workspace focus 5"
+      "$mainMod, 6, exec, hypr-local-workspace focus 6"
+      "$mainMod, 7, exec, hypr-local-workspace focus 7"
+      "$mainMod, 8, exec, hypr-local-workspace focus 8"
+      "$mainMod, 9, exec, hypr-local-workspace focus 9"
+      "$mainMod, 0, exec, hypr-local-workspace focus 10"
+
+      # Niri uses mainMod + Ctrl + number to move a window/workspace column.
+      "$mainMod CTRL, 1, exec, hypr-local-workspace move 1"
+      "$mainMod CTRL, 2, exec, hypr-local-workspace move 2"
+      "$mainMod CTRL, 3, exec, hypr-local-workspace move 3"
+      "$mainMod CTRL, 4, exec, hypr-local-workspace move 4"
+      "$mainMod CTRL, 5, exec, hypr-local-workspace move 5"
+      "$mainMod CTRL, 6, exec, hypr-local-workspace move 6"
+      "$mainMod CTRL, 7, exec, hypr-local-workspace move 7"
+      "$mainMod CTRL, 8, exec, hypr-local-workspace move 8"
+      "$mainMod CTRL, 9, exec, hypr-local-workspace move 9"
+      "$mainMod CTRL, 0, exec, hypr-local-workspace move 10"
 
       # Example special workspace (scratchpad)
       "$mainMod, S, togglespecialworkspace, magic"
       "$mainMod SHIFT, S, movetoworkspace, special:magic"
 
-      # Scroll through existing workspaces with mainMod + scroll
-      "$mainMod, mouse_down, workspace, e+1"
-      "$mainMod, mouse_up, workspace, e-1"
+      # Scroll through columns on the current workspace.
+      "$mainMod, mouse_down, layoutmsg, focus r"
+      "$mainMod, mouse_up, layoutmsg, focus l"
     ];
 
     # Move/resize windows with mainMod + LMB/RMB and dragging
@@ -336,10 +409,10 @@
       # "float,class:^(kitty)$,title:^(kitty)$"
 
       # Ignore maximize requests from apps. You'll probably like this.
-      "suppressevent maximize, class:.*"
+      "match:class .*, suppress_event maximize"
 
       # Fix some dragging issues with XWayland
-      "nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0"
+      "match:class ^$, match:title ^$, match:xwayland true, match:float true, match:fullscreen false, match:pin false, no_focus true"
     ];
   };
 }
