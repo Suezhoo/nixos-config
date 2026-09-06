@@ -42,12 +42,24 @@
 
   # These associations are personal because another user may choose different
   # applications or may not install Zed at all.
+  xdg.desktopEntries.brave-pdf = {
+    name = "Brave PDF Viewer";
+    comment = "Open PDF documents in Brave";
+    exec = "${pkgs.brave}/bin/brave %U";
+    terminal = false;
+    type = "Application";
+    mimeType = ["application/pdf"];
+    settings.NoDisplay = "true";
+  };
+
   xdg.mimeApps = {
     enable = true;
     associations.added = {
+      "application/pdf" = ["brave-pdf.desktop"];
       "x-scheme-handler/discord" = ["vesktop.desktop"];
     };
     defaultApplications = {
+      "application/pdf" = ["brave-pdf.desktop"];
       "application/xhtml+xml" = ["brave-browser.desktop"];
       "inode/directory" = ["org.kde.dolphin.desktop"];
       "text/plain" = ["dev.zed.Zed.desktop"];

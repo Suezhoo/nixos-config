@@ -102,6 +102,8 @@
     kitty
     kitty-themes
     kdePackages.dolphin # file explorer
+    kdePackages.kio # D-Bus file-opening services used by Dolphin outside Plasma
+    kdePackages.kservice # KDE application/MIME cache tools such as kbuildsycoca6
     vlc # video player
     htop # ram display
     btop # cpu display
@@ -109,6 +111,17 @@
     pavucontrol # audio
     wdisplays # for arranging display layout
   ];
+
+  # Dolphin runs outside Plasma in the Niri/Hyprland sessions. Give KService
+  # the application menu definition it normally receives from a Plasma
+  # session so MIME handlers can be resolved on double-click.
+  environment.etc."xdg/menus/applications.menu".source =
+    "${pkgs.kdePackages.plasma-workspace}/etc/xdg/menus/plasma-applications.menu";
+
+  # Dolphin's KIO application chooser addresses the KDE portal backend
+  # directly, even in the Niri and Hyprland sessions. Other backends cannot
+  # satisfy that D-Bus name, so keep KDE's backend available alongside them.
+  xdg.portal.extraPortals = [pkgs.kdePackages.xdg-desktop-portal-kde];
 
   # Enable Electron apps for Wayland
   environment.sessionVariables = {
