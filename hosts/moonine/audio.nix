@@ -80,9 +80,12 @@ in {
       {
         matches = [
           {
-            # This nickname comes from the display's ELD data and remains
-            # stable when the HDMI profile suffix changes.
-            "node.nick" = "SDM27Q10S*10";
+            # The PipeWire object path is regenerated when WirePlumber
+            # restarts. ALSA device 7 is the stable NVIDIA PCM connected to
+            # the Sony display's audio output.
+            "alsa.card_name" = "HDA NVidia";
+            "alsa.device" = 7;
+            "media.class" = "Audio/Sink";
           }
         ];
         actions.update-props = {

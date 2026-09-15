@@ -98,7 +98,7 @@
     }
 
     output "DP-3" {                           // Sony INZONE M10S (center)
-        mode "2560x1440@479.989"
+        mode "2560x1440@240.070"
         scale 1.0
         transform "normal"
         position x=1920 y=0

@@ -16,7 +16,7 @@
   wayland.windowManager.hyprland.settings = {
     monitor = lib.mkForce [
       "DP-4,1920x1080@239.760,0x180,1"
-      "DP-3,2560x1440@479.99,1920x0,1"
+      "DP-3,2560x1440@240.070,1920x0,1"
       "DP-2,1920x1080@120.000,4480x180,1"
     ];
 
